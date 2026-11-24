@@ -153,6 +153,11 @@ const schemas = [
                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
               <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#064273]/70 to-transparent" aria-hidden="true" />
+              {prop.featured && (
+                <span class="absolute top-3 left-3 rounded-md bg-amber-500 px-2.5 py-1 text-[11px] font-bold text-white shadow-xs">
+                  ★ {lang === 'es' ? 'Destacado' : 'Featured'}
+                </span>
+              )}
               <span class="absolute top-3 right-3 rounded-md bg-[#199bd1]/95 px-2.5 py-1 text-[11px] font-semibold text-white shadow-xs">
                 {lang === 'es' ? 'Alquiler Vacacional' : 'Holiday Rentals'}
               </span>

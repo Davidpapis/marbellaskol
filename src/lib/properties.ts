@@ -7,6 +7,7 @@ export interface PropertyCardData {
   slug: string;
   unitCode: string;
   vftLicense: string;
+  featured: boolean;
   ownerrezPropertyId: number;
   category: 'studio' | 'apartment' | 'duplex' | 'penthouse' | 'townhouse';
   building: string;
@@ -32,6 +33,7 @@ export function toPropertyCard(entry: PropertyEntry, lang: Lang): PropertyCardDa
     slug: d.slug,
     unitCode: d.unitCode,
     vftLicense: d.vftLicense,
+    featured: d.featured,
     ownerrezPropertyId: d.ownerrez.propertyId,
     category: d.category,
     building: d.building,

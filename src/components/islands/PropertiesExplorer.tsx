@@ -511,9 +511,16 @@ export default function PropertiesExplorer({ lang, properties }: Props) {
                       referrerPolicy="no-referrer"
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     />
-                    <span className="absolute top-3 left-3 rounded-full bg-surface/92 px-2.5 py-1 font-mono text-[11px] font-semibold text-ink backdrop-blur-xs">
-                      {prop.unitCode}
-                    </span>
+                    <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
+                      {prop.featured && (
+                        <span className="rounded-full bg-amber-500 px-2.5 py-1 text-[11px] font-bold text-white shadow-xs">
+                          ★ {lang === 'es' ? 'Destacado' : 'Featured'}
+                        </span>
+                      )}
+                      <span className="rounded-full bg-surface/92 px-2.5 py-1 font-mono text-[11px] font-semibold text-ink backdrop-blur-xs">
+                        {prop.unitCode}
+                      </span>
+                    </div>
                     {prop.seaView && (
                       <span className="absolute top-3 right-3 rounded-full bg-sea/90 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-xs">
                         {t.seaView}

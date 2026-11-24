@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PropertyQuickCreate from '../components/islands/PropertyQuickCreate';
+---
+
+<BaseLayout
+  lang="es"
+  title="Alta Rápida de Propiedades | MarbellaSkol"
+  description="Herramienta interna de alta rápida de apartamentos con autocompletado y conversión automática a WebP."
+  canonicalPath="/alta-propiedad"
+  noindex={true}
+>
+  <section class="bg-[#F8FBFD] py-12">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <p class="text-xs font-bold tracking-[0.16em] text-[#199bd1] uppercase">
+          Panel Interno · MarbellaSkol
+        </p>
+        <h1 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          Alta Rápida de Nueva Propiedad
+        </h1>
+        <p class="mt-2 max-w-2xl text-sm text-[#4A6278]">
+          Introduce el ID numérico para autocompletar la ficha técnica, pega los códigos de reserva y arrastra las fotos: el sistema las convierte a WebP ligero y aplica automáticamente el diseño oficial de la web.
+        </p>
+      </div>
+
+      <PropertyQuickCreate client:load />
+    </div>
+  </section>
+</BaseLayout>

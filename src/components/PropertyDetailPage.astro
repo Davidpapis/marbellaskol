@@ -1,10 +1,12 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PropertyGallery from './islands/PropertyGallery';
+import PropertyMap from './islands/PropertyMap';
 import OwnerRezWidgets from './OwnerRezWidgets.astro';
 import HouseRules from './HouseRules.astro';
 import siteSettings from '../content/singletons/site-settings.json';
-import { getCategoryLabel, type PropertyEntry } from '../lib/properties';
+import { getCategoryLabel, toPropertyCard, type PropertyEntry } from '../lib/properties';
 import type { Lang } from '../lib/i18n';
 
 interface Props {
@@ -40,6 +42,21 @@ const hasAnyWidget = Boolean(
     d.ownerrez.calendarWidgetIdEs ||
     d.ownerrez.reviewWidgetId
 );
+
+// Apartamentos similares sugeridos (mismo edificio / tipología / dormitorios)
+const allActive = await getCollection('properties', ({ data }) => data.isActive && data.slug !== d.slug);
+const suggested = allActive
+  .map((item) => {
+    let score = 0;
+    if (item.data.building === d.building) score += 4;
+    if (item.data.category === d.category) score += 3;
+    if (item.data.bedrooms === d.bedrooms) score += 2;
+    if (item.data.featured) score += 1;
+    return { item, score };
+  })
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map(({ item }) => toPropertyCard(item, lang));
 
 const schemas = [
   {
@@ -101,6 +118,12 @@ const schemas = [
   ogImage={images[0]}
   schemas={schemas}
 >
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
   <article class="bg-[#F8FBFD]">
     <!-- Franja blanca superior con Breadcrumb + Mosaico 5 fotos a ancho completo -->
     <div class="border-b border-[#DCE8F2] bg-white">
@@ -121,6 +144,11 @@ const schemas = [
 
         <!-- Badges + Titular H1 + Dirección -->
         <div class="mt-6 flex flex-wrap items-center gap-2">
+          {d.featured && (
+            <span class="rounded-md bg-amber-500 px-2.5 py-1 text-xs font-bold text-white shadow-2xs">
+              ★ {lang === 'es' ? 'Destacado' : 'Featured'}
+            </span>
+          )}
           <span class="rounded-md bg-[#199bd1] px-2.5 py-1 text-xs font-semibold text-white">
             {lang === 'es' ? 'Alquiler Vacacional' : 'Holiday Rentals'}
           </span>
@@ -232,6 +260,17 @@ const schemas = [
             </section>
           )}
 
+          <!-- Mapa interactivo gratuito de ubicación -->
+          <PropertyMap
+            lang={lang}
+            unitCode={d.unitCode}
+            address={d.location.address}
+            building={d.building}
+            latitude={d.location.latitude}
+            longitude={d.location.longitude}
+            client:visible
+          />
+
           <!-- Normas de la Casa + Fianza 300 € -->
           <HouseRules lang={lang} />
 
@@ -261,6 +300,67 @@ const schemas = [
           />
         </aside>
       </div>
+
+      <!-- Apartamentos Similares Sugeridos -->
+      {suggested.length > 0 && (
+        <section class="mt-16 border-t border-[#DCE8F2] pt-12">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+                {lang === 'es' ? 'También te puede gustar' : 'You May Also Like'}
+              </p>
+              <h2 class="mt-1 font-serif text-2xl font-semibold text-[#0B2239] sm:text-3xl">
+                {lang === 'es' ? 'Apartamentos Similares Sugeridos' : 'Similar Suggested Apartments'}
+              </h2>
+            </div>
+            <a href={listHref} class="text-xs font-bold text-[#0B6FA4] hover:text-[#199bd1]">
+              {lang === 'es' ? 'Ver todo el catálogo →' : 'View full catalogue →'}
+            </a>
+          </div>
+
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {suggested.map((item) => (
+              <article class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-[#DCE8F2] bg-white shadow-xs">
+                <a href={item.href} class="relative block aspect-[16/10] overflow-hidden bg-[#E7F4FC]">
+                  <img
+                    src={item.coverImage}
+                    alt={item.title}
+                    loading="lazy"
+                    referrerpolicy="no-referrer"
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  {item.featured && (
+                    <span class="absolute top-3 left-3 rounded-md bg-amber-500 px-2.5 py-0.5 text-[11px] font-bold text-white shadow-xs">
+                      ★ {lang === 'es' ? 'Destacado' : 'Featured'}
+                    </span>
+                  )}
+                  <span class="absolute top-3 right-3 rounded-md bg-[#199bd1]/95 px-2.5 py-0.5 font-mono text-[11px] font-bold text-white">
+                    {item.unitCode}
+                  </span>
+                </a>
+                <div class="flex flex-1 flex-col p-5">
+                  <p class="text-xs font-medium text-[#199bd1]">
+                    {item.building} · {item.zone}
+                  </p>
+                  <h3 class="mt-1.5 line-clamp-2 font-serif text-lg font-semibold text-[#0B2239]">
+                    <a href={item.href} class="hover:text-[#0B6FA4]">
+                      {item.title}
+                    </a>
+                  </h3>
+                  <div class="mt-auto flex items-center gap-4 border-t border-[#EBF3FA] pt-3.5 mt-4 text-xs font-semibold text-[#334E68] tabular-nums">
+                    <span>🛏 {item.bedrooms === 0 ? (lang === 'es' ? 'Estudio' : 'Studio') : item.bedrooms}</span>
+                    <span>🛁 {item.bathrooms}</span>
+                    <span>👥 {item.maxGuests}</span>
+                    <a href={item.href} class="ml-auto text-[#0B6FA4] hover:text-[#199bd1]">
+                      {lang === 'es' ? 'Ver →' : 'View →'}
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   </article>
 
