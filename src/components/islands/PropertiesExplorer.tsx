@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Users, BedDouble, Search, MapPin, Waves, RotateCcw, Sparkles } from 'lucide-react';
 import DateRangePicker from './DateRangePicker';
 import type { PropertyCardData } from '../../lib/properties';
@@ -35,11 +35,6 @@ export default function PropertiesExplorer({ lang, properties }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [searchError, setSearchError] = useState<string>('');
   const [searchActive, setSearchActive] = useState<boolean>(false);
-  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
-
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const mapInstanceRef = useRef<import('leaflet').Map | null>(null);
-  const markersLayerRef = useRef<import('leaflet').LayerGroup | null>(null);
 
   const t =
     lang === 'es'
@@ -184,106 +179,6 @@ export default function PropertiesExplorer({ lang, properties }: Props) {
       return true;
     });
   }, [properties, searchActive, availableIds, guests, bedrooms, category, building, seaViewOnly]);
-
-  // Inicializar mapa gratuito Leaflet + Carto Voyager
-  useEffect(() => {
-    let cancelled = false;
-
-    async function initMap() {
-      if (!mapContainerRef.current || mapInstanceRef.current) return;
-      const L = await import('leaflet');
-      if (cancelled || !mapContainerRef.current) return;
-
-      const map = L.map(mapContainerRef.current, {
-        center: [36.5076, -4.8902],
-        zoom: 15,
-        scrollWheelZoom: false,
-      });
-
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 19,
-      }).addTo(map);
-
-      const group = L.layerGroup().addTo(map);
-      mapInstanceRef.current = map;
-      markersLayerRef.current = group;
-    }
-
-    void initMap();
-
-    return () => {
-      cancelled = true;
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
-        mapInstanceRef.current = null;
-        markersLayerRef.current = null;
-      }
-    };
-  }, []);
-
-  // Actualizar marcadores del mapa al cambiar los resultados filtrados
-  useEffect(() => {
-    let cancelled = false;
-
-    async function updateMarkers() {
-      const map = mapInstanceRef.current;
-      const group = markersLayerRef.current;
-      if (!map || !group) return;
-
-      const L = await import('leaflet');
-      if (cancelled) return;
-
-      group.clearLayers();
-      const bounds: [number, number][] = [];
-
-      // Agrupar ligeramente propiedades con coordenadas idénticas (mismo Edificio Skol)
-      const coordCounter = new Map<string, number>();
-
-      filteredProperties.forEach((prop) => {
-        const key = `${prop.latitude.toFixed(4)},${prop.longitude.toFixed(4)}`;
-        const count = coordCounter.get(key) ?? 0;
-        coordCounter.set(key, count + 1);
-
-        // Micro-espiral de pocos metros para distinguir apartamentos dentro del mismo edificio
-        const angle = count * 0.9;
-        const radius = count === 0 ? 0 : 0.00008 * Math.sqrt(count);
-        const lat = prop.latitude + Math.cos(angle) * radius;
-        const lng = prop.longitude + Math.sin(angle) * radius;
-        bounds.push([lat, lng]);
-
-        const isHovered = hoveredSlug === prop.slug;
-        const marker = L.circleMarker([lat, lng], {
-          radius: isHovered ? 10 : 7,
-          fillColor: isHovered ? '#1589C9' : '#0B5D8E',
-          color: '#FFFFFF',
-          weight: 2,
-          opacity: 1,
-          fillOpacity: 0.94,
-        });
-
-        marker.bindPopup(
-          `<div style="min-width:180px;font-family:Plus Jakarta Sans,sans-serif;">
-            <strong style="color:#0A4D68;font-size:13px;">${prop.unitCode}</strong>
-            <div style="font-size:12px;color:#525A63;margin:4px 0 8px;">${prop.building} · ${prop.maxGuests} ${t.guestsShort}</div>
-            <a href="${prop.href}" style="display:inline-block;background:#0A4D68;color:#fff;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:600;text-decoration:none;">${t.viewApt}</a>
-          </div>`
-        );
-
-        marker.addTo(group);
-      });
-
-      if (bounds.length > 0 && !hoveredSlug) {
-        map.fitBounds(bounds, { padding: [36, 36], maxZoom: 16 });
-      }
-    }
-
-    void updateMarkers();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [filteredProperties, hoveredSlug, t.guestsShort, t.viewApt]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -464,123 +359,108 @@ export default function PropertiesExplorer({ lang, properties }: Props) {
         </div>
       )}
 
-      {/* Split View: Lista de tarjetas izquierda + Mapa Leaflet derecha */}
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(340px,0.75fr)] lg:items-start">
-        <div>
-          {loading ? (
-            <div className="grid gap-5 sm:grid-cols-2" aria-busy="true">
-              {Array.from({ length: 6 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="overflow-hidden rounded-2xl border border-sand-200 bg-surface p-3"
-                >
-                  <div className="aspect-[16/10] animate-pulse rounded-xl bg-sand-200" />
-                  <div className="mt-4 h-4 w-2/3 animate-pulse rounded bg-sand-200" />
-                  <div className="mt-2 h-3 w-1/2 animate-pulse rounded bg-sand-100" />
-                </div>
-              ))}
-            </div>
-          ) : filteredProperties.length === 0 ? (
-            <div className="flex flex-col items-center rounded-2xl border border-sand-200 bg-surface px-6 py-16 text-center">
-              <p className="font-serif text-2xl font-semibold text-ink">{t.emptyTitle}</p>
-              <p className="mt-2 max-w-md text-sm text-ink-muted">{t.emptyDesc}</p>
-              <button
-                type="button"
-                onClick={resetAll}
-                className="btn-tactile mt-6 inline-flex cursor-pointer items-center gap-2 rounded-full bg-sea px-5 py-2.5 text-sm font-semibold text-white hover:bg-sea-dark"
+      {/* Catálogo completo a 3 columnas */}
+      <div>
+        {loading ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="overflow-hidden rounded-2xl border border-sand-200 bg-surface p-3"
               >
-                <RotateCcw className="h-4 w-4" aria-hidden="true" />
-                {t.reset}
-              </button>
-            </div>
-          ) : (
-            <div className="grid gap-5 sm:grid-cols-2">
-              {filteredProperties.map((prop) => (
-                <article
-                  key={prop.slug}
-                  onMouseEnter={() => setHoveredSlug(prop.slug)}
-                  onMouseLeave={() => setHoveredSlug(null)}
-                  className="card-lift group flex flex-col overflow-hidden rounded-2xl border border-sand-200 bg-surface shadow-xs"
-                >
-                  <a href={prop.href} className="relative block aspect-[16/10] overflow-hidden bg-sand-100">
-                    <img
-                      src={prop.coverImage}
-                      alt={prop.title}
-                      loading="lazy"
-                      decoding="async"
-                      referrerPolicy="no-referrer"
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                    />
-                    <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
-                      {prop.featured && (
-                        <span className="rounded-full bg-amber-500 px-2.5 py-1 text-[11px] font-bold text-white shadow-xs">
-                          ★ {lang === 'es' ? 'Destacado' : 'Featured'}
-                        </span>
-                      )}
-                      <span className="rounded-full bg-surface/92 px-2.5 py-1 font-mono text-[11px] font-semibold text-ink backdrop-blur-xs">
-                        {prop.unitCode}
-                      </span>
-                    </div>
-                    {prop.seaView && (
-                      <span className="absolute top-3 right-3 rounded-full bg-sea/90 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-xs">
-                        {t.seaView}
+                <div className="aspect-[16/10] animate-pulse rounded-xl bg-sand-200" />
+                <div className="mt-4 h-4 w-2/3 animate-pulse rounded bg-sand-200" />
+                <div className="mt-2 h-3 w-1/2 animate-pulse rounded bg-sand-100" />
+              </div>
+            ))}
+          </div>
+        ) : filteredProperties.length === 0 ? (
+          <div className="flex flex-col items-center rounded-2xl border border-sand-200 bg-surface px-6 py-16 text-center">
+            <p className="font-serif text-2xl font-semibold text-ink">{t.emptyTitle}</p>
+            <p className="mt-2 max-w-md text-sm text-ink-muted">{t.emptyDesc}</p>
+            <button
+              type="button"
+              onClick={resetAll}
+              className="btn-tactile mt-6 inline-flex cursor-pointer items-center gap-2 rounded-full bg-sea px-5 py-2.5 text-sm font-semibold text-white hover:bg-sea-dark"
+            >
+              <RotateCcw className="h-4 w-4" aria-hidden="true" />
+              {t.reset}
+            </button>
+          </div>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredProperties.map((prop) => (
+              <article
+                key={prop.slug}
+                className="card-lift group flex flex-col overflow-hidden rounded-2xl border border-sand-200 bg-surface shadow-xs"
+              >
+                <a href={prop.href} className="relative block aspect-[16/10] overflow-hidden bg-sand-100">
+                  <img
+                    src={prop.coverImage}
+                    alt={prop.title}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute top-3 left-3 flex flex-wrap items-center gap-1.5">
+                    {prop.featured && (
+                      <span className="rounded-full bg-amber-500 px-2.5 py-1 text-[11px] font-bold text-white shadow-xs">
+                        ★ {lang === 'es' ? 'Destacado' : 'Featured'}
                       </span>
                     )}
-                  </a>
-
-                  <div className="flex flex-1 flex-col p-4">
-                    <p className="flex items-center gap-1 text-xs font-medium text-ink-muted">
-                      <MapPin className="h-3.5 w-3.5 text-terracotta" aria-hidden="true" />
-                      {prop.building} · {prop.zone}
-                    </p>
-                    <h2 className="mt-1.5 line-clamp-2 font-serif text-lg leading-snug font-semibold text-ink">
-                      <a href={prop.href} className="hover:text-sea">
-                        {prop.title}
-                      </a>
-                    </h2>
-
-                    <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-ink-muted tabular-nums">
-                      <span>
-                        {prop.bedrooms === 0 ? t.studioLabel : `${prop.bedrooms} ${t.bed}`}
-                      </span>
-                      <span aria-hidden="true">·</span>
-                      <span>
-                        {prop.bathrooms} {prop.bathrooms === 1 ? t.bath : t.baths}
-                      </span>
-                      <span aria-hidden="true">·</span>
-                      <span>
-                        {prop.maxGuests} {t.guestsShort}
-                      </span>
-                    </div>
-
-                    <div className="mt-auto flex items-center justify-between border-t border-sand-100 pt-3.5 mt-4">
-                      <span className="font-mono text-[11px] text-ink-muted">
-                        {prop.vftLicense || prop.unitCode}
-                      </span>
-                      <a
-                        href={prop.href}
-                        className="text-xs font-semibold text-sea hover:text-sea-dark"
-                      >
-                        {t.viewApt} →
-                      </a>
-                    </div>
+                    <span className="rounded-full bg-surface/92 px-2.5 py-1 font-mono text-[11px] font-semibold text-ink backdrop-blur-xs">
+                      {prop.unitCode}
+                    </span>
                   </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
+                  {prop.seaView && (
+                    <span className="absolute top-3 right-3 rounded-full bg-sea/90 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-xs">
+                      {t.seaView}
+                    </span>
+                  )}
+                </a>
 
-        {/* Mapa interactivo gratuito sticky en desktop */}
-        <aside className="lg:sticky lg:top-22">
-          <div className="overflow-hidden rounded-2xl border border-sand-200 bg-surface shadow-xs">
-            <div className="flex items-center justify-between border-b border-sand-200 px-4 py-2.5 text-xs text-ink-muted">
-              <span className="font-semibold text-ink">Marbella · Edificio Skol</span>
-              <span>{t.mapNote}</span>
-            </div>
-            <div ref={mapContainerRef} className="h-[420px] w-full lg:h-[640px]" />
+                <div className="flex flex-1 flex-col p-4">
+                  <p className="flex items-center gap-1 text-xs font-medium text-ink-muted">
+                    <MapPin className="h-3.5 w-3.5 text-terracotta" aria-hidden="true" />
+                    {prop.building} · {prop.zone}
+                  </p>
+                  <h2 className="mt-1.5 line-clamp-2 font-serif text-lg leading-snug font-semibold text-ink">
+                    <a href={prop.href} className="hover:text-sea">
+                      {prop.title}
+                    </a>
+                  </h2>
+
+                  <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-ink-muted tabular-nums">
+                    <span>
+                      {prop.bedrooms === 0 ? t.studioLabel : `${prop.bedrooms} ${t.bed}`}
+                    </span>
+                    <span aria-hidden="true">·</span>
+                    <span>
+                      {prop.bathrooms} {prop.bathrooms === 1 ? t.bath : t.baths}
+                    </span>
+                    <span aria-hidden="true">·</span>
+                    <span>
+                      {prop.maxGuests} {t.guestsShort}
+                    </span>
+                  </div>
+
+                  <div className="mt-auto flex items-center justify-between gap-2 border-t border-sand-100 pt-3.5 mt-4">
+                    <span className="truncate font-mono text-[11px] text-ink-muted">
+                      {prop.vftLicense || prop.unitCode}
+                    </span>
+                    <a
+                      href={prop.href}
+                      className="btn-tactile btn-shimmer inline-flex shrink-0 items-center rounded-full bg-gradient-to-r from-[#199bd1] to-[#0B6FA4] px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:from-[#0B6FA4] hover:to-[#064273]"
+                    >
+                      {t.viewApt}
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
-        </aside>
+        )}
       </div>
     </div>
   );

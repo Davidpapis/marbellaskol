@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactForm from '../../components/islands/ContactForm';
+import SkolLocationMap from '../../components/islands/SkolLocationMap';
 import contactPage from '../../content/singletons/contact-page.json';
 import siteSettings from '../../content/singletons/site-settings.json';
 ---
@@ -11,50 +12,82 @@ import siteSettings from '../../content/singletons/site-settings.json';
   description="Contacta directamente con MarbellaSkol para apartamentos en el Edificio Skol y centro de Marbella. Teléfono, WhatsApp y formulario."
   canonicalPath="/es/contacto"
 >
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
   <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-    <div class="grid gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-5">
-        <p class="text-xs font-semibold tracking-[0.14em] text-terracotta uppercase">Marbella Centro</p>
-        <h1 class="mt-2 text-4xl font-semibold text-ink">{contactPage.titleEs}</h1>
-        <p class="mt-4 text-base leading-relaxed text-ink-muted">{contactPage.introEs}</p>
+    <!-- Cabecera centrada arriba -->
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-xs font-bold tracking-[0.16em] text-[#199bd1] uppercase">
+        Edificio Skol · Marbella Centro
+      </p>
+      <h1 class="mt-2 font-serif text-4xl font-semibold text-[#0B2239] sm:text-5xl">
+        {contactPage.titleEs}
+      </h1>
+      <p class="mt-4 text-base leading-relaxed text-[#4A6278]">
+        {contactPage.introEs}
+      </p>
+    </div>
 
-        <div class="mt-8 space-y-4 rounded-2xl border border-sand-200 bg-surface p-6 text-sm">
+    <!-- Dos tarjetas perfectamente alineadas al mismo nivel y altura -->
+    <div class="mt-10 grid items-stretch gap-8 lg:grid-cols-12">
+      <div class="flex flex-col justify-between rounded-2xl border border-[#DCE8F2] bg-white p-6 text-sm shadow-xs sm:p-8 lg:col-span-5">
+        <div class="space-y-5">
           <div>
-            <p class="text-xs font-semibold tracking-wider text-ink-muted uppercase">Móvil y WhatsApp</p>
-            <a href={`tel:${siteSettings.phoneMobile.replace(/\s+/g, '')}`} class="mt-1 block font-mono text-base font-semibold text-sea">
+            <p class="text-xs font-bold tracking-wider text-[#4A6278] uppercase">Móvil y WhatsApp</p>
+            <a
+              href={`tel:${siteSettings.phoneMobile.replace(/\s+/g, '')}`}
+              class="mt-1 block font-mono text-lg font-bold text-[#0B6FA4] hover:text-[#199bd1]"
+            >
               {siteSettings.phoneMobile}
             </a>
           </div>
           <div>
-            <p class="text-xs font-semibold tracking-wider text-ink-muted uppercase">Teléfono de Oficina</p>
-            <a href={`tel:${siteSettings.phoneLandline.replace(/\s+/g, '')}`} class="mt-1 block font-mono text-base font-semibold text-ink">
+            <p class="text-xs font-bold tracking-wider text-[#4A6278] uppercase">Teléfono de Oficina</p>
+            <a
+              href={`tel:${siteSettings.phoneLandline.replace(/\s+/g, '')}`}
+              class="mt-1 block font-mono text-base font-semibold text-[#0B2239] hover:text-[#0B6FA4]"
+            >
               {siteSettings.phoneLandline}
             </a>
           </div>
           <div>
-            <p class="text-xs font-semibold tracking-wider text-ink-muted uppercase">Correo Electrónico</p>
-            <a href={`mailto:${siteSettings.email}`} class="mt-1 block font-medium text-sea">
+            <p class="text-xs font-bold tracking-wider text-[#4A6278] uppercase">Correo Electrónico</p>
+            <a
+              href={`mailto:${siteSettings.email}`}
+              class="mt-1 block font-semibold text-[#0B6FA4] hover:text-[#199bd1]"
+            >
               {siteSettings.email}
             </a>
           </div>
           <div>
-            <p class="text-xs font-semibold tracking-wider text-ink-muted uppercase">Horario</p>
-            <p class="mt-1 text-ink-muted">{contactPage.officeHoursEs}</p>
+            <p class="text-xs font-bold tracking-wider text-[#4A6278] uppercase">Horario</p>
+            <p class="mt-1 text-[#4A6278]">{contactPage.officeHoursEs}</p>
           </div>
-          <a
-            href={`https://wa.me/${siteSettings.whatsappNumber}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-tactile mt-2 inline-flex w-full items-center justify-center rounded-full bg-saving px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-          >
-            Escribir por WhatsApp
-          </a>
+          <div>
+            <p class="text-xs font-bold tracking-wider text-[#4A6278] uppercase">Dirección</p>
+            <p class="mt-1 text-[#4A6278]">{siteSettings.address}</p>
+          </div>
         </div>
+
+        <a
+          href={`https://wa.me/${siteSettings.whatsappNumber}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-tactile btn-shimmer mt-8 inline-flex h-12 w-full items-center justify-center rounded-full bg-gradient-to-r from-[#0D7A67] to-[#0F967E] px-5 text-sm font-bold text-white shadow-sm"
+        >
+          Escribir por WhatsApp
+        </a>
       </div>
 
       <div class="lg:col-span-7">
         <ContactForm lang="es" client:load />
       </div>
     </div>
+
+    <SkolLocationMap lang="es" client:visible />
   </section>
 </BaseLayout>

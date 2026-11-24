@@ -199,8 +199,11 @@ const schemas = [
                 </span>
                 <span>🛁 {prop.bathrooms}</span>
                 <span>👥 {prop.maxGuests}</span>
-                <a href={prop.href} class="ml-auto text-[#0B6FA4] hover:text-[#199bd1]">
-                  {lang === 'es' ? 'Reservar →' : 'Book Direct →'}
+                <a
+                  href={prop.href}
+                  class="btn-tactile btn-shimmer ml-auto inline-flex items-center rounded-full bg-gradient-to-r from-[#199bd1] to-[#0B6FA4] px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:from-[#0B6FA4] hover:to-[#064273]"
+                >
+                  {lang === 'es' ? 'Reservar' : 'Book Direct'}
                 </a>
               </div>
             </div>

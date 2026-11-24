@@ -27,14 +27,6 @@ const canonicalPath = lang === 'es' ? '/es/propiedades' : '/properties';
 ---
 
 <BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath}>
-  <link
-    slot="default"
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-
   <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
     <div class="mb-8">
       <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
@@ -47,8 +39,8 @@ const canonicalPath = lang === 'es' ? '/es/propiedades' : '/properties';
       </h1>
       <p class="mt-2 max-w-2xl text-sm text-ink-muted sm:text-base">
         {lang === 'es'
-          ? 'Introduce tus fechas para consultar disponibilidad real al instante y explora cada unidad en el mapa interactivo.'
-          : 'Enter your dates to check instant real-time availability and explore each apartment on the interactive map.'}
+          ? 'Introduce tus fechas para consultar disponibilidad real al instante en nuestros apartamentos de Marbella.'
+          : 'Enter your dates to check instant real-time availability across our Marbella apartments.'}
       </p>
     </div>
 

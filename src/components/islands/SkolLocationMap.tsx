@@ -1,0 +1,91 @@
+import { useEffect, useRef } from 'react';
+import { MapPin, ExternalLink } from 'lucide-react';
+import type { Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+export default function SkolLocationMap({ lang }: Props) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<import('leaflet').Map | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function init() {
+      if (!containerRef.current || mapRef.current) return;
+      const L = await import('leaflet');
+      if (cancelled || !containerRef.current) return;
+
+      const map = L.map(containerRef.current, {
+        center: [36.5076, -4.8931],
+        zoom: 16,
+        scrollWheelZoom: false,
+      });
+
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+      }).addTo(map);
+
+      const beaconLabel =
+        lang === 'es' ? '🏖️ ¡Estamos aquí! · Edificio Skol' : '🏖️ We are here! · Edificio Skol';
+      const skolIcon = L.divIcon({
+        className: 'skol-beacon-leaflet',
+        html: `<div class="skol-beacon-wrap">
+          <div class="skol-beacon-pill">${beaconLabel}</div>
+          <div class="skol-beacon-dot-wrap">
+            <span class="skol-beacon-ring"></span>
+            <span class="skol-beacon-core"></span>
+          </div>
+        </div>`,
+        iconSize: [190, 48],
+        iconAnchor: [95, 42],
+      });
+
+      L.marker([36.5076, -4.8931], { icon: skolIcon, zIndexOffset: 1000 }).addTo(map);
+      mapRef.current = map;
+    }
+
+    void init();
+
+    return () => {
+      cancelled = true;
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
+  }, [lang]);
+
+  const isEs = lang === 'es';
+
+  return (
+    <div className="mt-12 overflow-hidden rounded-3xl border border-[#DCE8F2] bg-white shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#EBF3FA] px-6 py-4">
+        <div>
+          <p className="text-[11px] font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+            {isEs ? 'Nuestra Oficina en Primera Línea' : 'Our Beachfront Office'}
+          </p>
+          <h2 className="mt-0.5 flex items-center gap-1.5 font-serif text-xl font-semibold text-[#0B2239]">
+            <MapPin className="h-4 w-4 text-[#199bd1]" aria-hidden="true" />
+            <span>Edificio Skol, Av. Arias Maldonado 16 · 29602 Marbella</span>
+          </h2>
+        </div>
+
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Edificio+Skol+Marbella"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-tactile inline-flex items-center gap-1.5 rounded-full border border-[#DCE8F2] bg-[#F8FBFD] px-4 py-2 text-xs font-bold text-[#0B6FA4] hover:border-[#199bd1] hover:bg-[#E7F4FC]"
+        >
+          <span>{isEs ? 'Cómo llegar en Google Maps' : 'Get Directions on Google Maps'}</span>
+          <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+        </a>
+      </div>
+
+      <div ref={containerRef} className="h-[420px] w-full" />
+    </div>
+  );
+}

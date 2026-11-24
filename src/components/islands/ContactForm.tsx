@@ -82,7 +82,7 @@ export default function ContactForm({ lang, propertyRef = '' }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border border-sand-200 bg-surface p-6">
+    <form onSubmit={handleSubmit} className="flex h-full flex-col justify-between space-y-4 rounded-2xl border border-[#DCE8F2] bg-white p-6 shadow-xs sm:p-8">
       <div className="hidden" aria-hidden="true">
         <label>
           Website
@@ -145,7 +145,7 @@ export default function ContactForm({ lang, propertyRef = '' }: Props) {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="btn-tactile h-12 w-full cursor-pointer rounded-full bg-sea px-6 text-sm font-semibold text-white hover:bg-sea-dark disabled:opacity-60"
+        className="btn-tactile btn-shimmer h-12 w-full cursor-pointer rounded-full bg-gradient-to-r from-[#199bd1] to-[#0B6FA4] px-6 text-sm font-bold text-white shadow-sm hover:from-[#0B6FA4] hover:to-[#064273] disabled:opacity-60"
       >
         {status === 'submitting' ? t.sending : t.send}
       </button>
