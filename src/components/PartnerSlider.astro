@@ -1,0 +1,68 @@
+---
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const partners = [
+  { name: 'Booking.com', src: '/images/partners/booking.jpg' },
+  { name: 'Airbnb', src: '/images/partners/airbnb.jpg' },
+  { name: 'Expedia', src: '/images/partners/expedia.jpg' },
+  { name: 'Spain-Holiday.com', src: '/images/partners/spain-holiday.jpg' },
+  { name: 'HomeAway / Vrbo', src: '/images/partners/homeaway.jpg' },
+  { name: 'CIT Marbella', src: '/images/partners/cit-marbella.jpg' },
+];
+---
+
+<section class="border-b border-[#DCE8F2] bg-white py-8" aria-label={lang === 'es' ? 'Portales y asociaciones oficiales' : 'Official portals and partners'}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <p class="mb-5 text-center text-[11px] font-bold tracking-[0.16em] text-[#4A6278] uppercase">
+      {lang === 'es'
+        ? 'Sincronizados en tiempo real con los principales portales internacionales — Mejor precio reservando aquí'
+        : 'Synced in real time with leading international portals — Best rate when booking direct'}
+    </p>
+    <div class="relative overflow-hidden">
+      <div class="partner-track flex w-max items-center gap-12 sm:gap-16">
+        {[...partners, ...partners].map((p) => (
+          <div class="flex h-12 shrink-0 items-center justify-center px-2 opacity-85 transition-opacity hover:opacity-100">
+            <img
+              src={p.src}
+              alt={p.name}
+              height="44"
+              loading="lazy"
+              class="h-10 w-auto max-w-[155px] object-contain"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes partner-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .partner-track {
+    animation: partner-marquee 26s linear infinite;
+  }
+  .partner-track:hover {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .partner-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+      justify-content: center;
+    }
+  }
+</style>

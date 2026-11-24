@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import skol from '../content/singletons/skol-building.json';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+const canonicalPath = isEs ? '/es/edificio-skol' : '/skol-building';
+const propsHref = isEs ? '/es/propiedades' : '/properties';
+
+const highlights = [
+  {
+    title: isEs ? '3 Piscinas y Jardines Tropicales' : '3 Swimming Pools & Tropical Gardens',
+    badge: isEs ? 'Abiertas todo el año' : 'Open year-round',
+    image: '/images/marbella/skol-pools-real.jpg',
+    desc: isEs
+      ? 'Tres piscinas exteriores rodeadas de palmeras, césped cuidado y vegetación subtropical mirando directamente al Mediterráneo. Dispone de hamacas (3 €/día) y cafetín de piscina en temporada.'
+      : 'Three outdoor pools surrounded by lush palms and subtropical gardens overlooking the Mediterranean, with sun loungers (€3/day) and a seasonal poolside café.',
+  },
+  {
+    title: isEs ? 'Recepción 24 Horas' : '24-Hour Reception Desk',
+    badge: isEs ? 'Seguridad y llegadas tardías' : 'Security & late arrivals',
+    image: '/images/marbella/skol-real-wiki.jpg',
+    desc: isEs
+      ? 'Conserjería presencial las 24 horas del día, los 365 días del año en el vestíbulo principal del Edificio Skol. Máxima tranquilidad para recoger llaves en vuelos nocturnos y asistencia inmediata.'
+      : 'Round-the-clock staffed reception desk in Edificio Skol’s main lobby 365 days a year — effortless key collection for late flights and constant peace of mind.',
+  },
+  {
+    title: isEs ? 'Salida Directa a la Playa y Todo a Pie' : 'Direct Beach Gate & Walk Everywhere',
+    badge: isEs ? 'Sin necesidad de coche' : 'No car needed',
+    image: '/images/marbella/paseo-skol-real.jpg',
+    desc: isEs
+      ? 'Desde los jardines comunitarios accedes por una puerta privada directamente al Paseo Marítimo y a la Playa de la Fontanilla. Supermercados, farmacia, restaurantes y el Casco Antiguo a pocos minutos caminando.'
+      : 'Step straight through the private garden gate onto Marbella’s Paseo Marítimo and La Fontanilla Beach. Supermarkets, cafés, the Marina and Old Town are all a short stroll away.',
+  },
+];
+
+const walkDistances = [
+  { place: isEs ? 'Playa de la Fontanilla' : 'La Fontanilla Beach', time: '1 min' },
+  { place: isEs ? 'Puerto Deportivo de Marbella' : 'Marbella Marina', time: '3 min' },
+  { place: isEs ? 'Parque de la Constitución' : 'Constitution Park', time: '2 min' },
+  { place: isEs ? 'Avenida del Mar (Dalí)' : 'Avenida del Mar (Dalí)', time: '4 min' },
+  { place: isEs ? 'Casco Antiguo y Plaza de los Naranjos' : 'Old Town & Orange Square', time: '8 min' },
+  { place: isEs ? 'Ferry directo a Puerto Banús' : 'Direct Ferry to Puerto Banús', time: '3 min' },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={isEs ? skol.seoTitleEs : skol.seoTitleEn}
+  description={isEs ? skol.seoDescEs : skol.seoDescEn}
+  canonicalPath={canonicalPath}
+  ogImage="/images/marbella/skol-pools-real.jpg"
+>
+  <!-- HERO EDIFICIO SKOL -->
+  <section class="relative overflow-hidden bg-[#064273] text-white">
+    <img
+      src="/images/marbella/skol-pools-real.jpg"
+      alt={isEs ? 'Piscinas y vistas reales del Edificio Skol frente al mar en Marbella' : 'Real swimming pools and beachfront views of Edificio Skol Marbella'}
+      class="absolute inset-0 h-full w-full object-cover opacity-65"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#064273]/65 via-[#064273]/40 to-[#064273]/85" aria-hidden="true" />
+
+    <div class="relative mx-auto max-w-7xl px-4 py-18 sm:px-6 lg:px-8 lg:py-24">
+      <p class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-1 text-xs font-bold tracking-[0.14em] uppercase backdrop-blur-md">
+        Av. Arias Maldonado 16 · Marbella · Est. 1963
+      </p>
+      <h1 class="mt-5 max-w-3xl font-serif text-4xl leading-tight font-semibold sm:text-5xl lg:text-6xl">
+        {isEs ? skol.titleEs : skol.titleEn}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/92 sm:text-lg">
+        {isEs ? skol.introEs : skol.introEn}
+      </p>
+    </div>
+  </section>
+
+  <!-- HISTORIA Y ARQUITECTURA DEL EDIFICIO SKOL -->
+  <section class="bg-white py-16 lg:py-22">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:px-8">
+      <div class="lg:col-span-6" data-reveal>
+        <p class="text-xs font-bold tracking-[0.16em] text-[#199bd1] uppercase">
+          {isEs ? 'Patrimonio Arquitectónico de Marbella' : 'Architectural Icon of Marbella'}
+        </p>
+        <h2 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          {isEs
+            ? 'Historia del Edificio Skol: un icono mediterráneo desde 1963'
+            : 'The Story of Edificio Skol: A Mediterranean Landmark Since 1963'}
+        </h2>
+        <div class="mt-5 space-y-4 text-sm leading-relaxed text-[#4A6278] sm:text-base">
+          <p>
+            {isEs
+              ? 'Proyectado a comienzos de los años sesenta (1961–1963) por el prestigioso arquitecto Manuel Jaén de Zulueta, el Edificio Skol nació como una de las obras maestras del Movimiento Moderno en la Costa del Sol.'
+              : 'Designed in the early 1960s (1961–1963) by renowned Spanish architect Manuel Jaén de Zulueta, Edificio Skol stands as one of the finest examples of Modernist beachfront architecture on the Costa del Sol.'}
+          </p>
+          <p>
+            {isEs
+              ? 'Sus tres bloques escalonados en blanco puro, sus emblemáticas celosías diseñadas para filtrar la luz andaluza y la orientación de sus terrazas fueron concebidos para que la brisa del Mediterráneo y las vistas a la Playa de la Fontanilla fueran las auténticas protagonistas.'
+              : 'Its stepped whitewashed blocks, signature Mediterranean latticework designed to filter Andalusian sunlight, and sea-facing terraces were crafted so the Mediterranean breeze and views over La Fontanilla Beach take centre stage.'}
+          </p>
+          <p>
+            {isEs
+              ? 'Más de seis décadas después, sigue siendo uno de los complejos más codiciados de Marbella por viajeros de toda Europa que buscan primera línea real de playa, tranquilidad en sus jardines y la comodidad de vivir el centro caminando.'
+              : 'Over six decades later, it remains one of Marbella’s most sought-after beachfront residences for international guests seeking true frontline sea access, tranquil tropical gardens and effortless walking access to the heart of town.'}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:col-span-6" data-reveal style="--reveal-delay: 80ms">
+        <img
+          src="/images/marbella/skol-real-wiki.jpg"
+          alt={isEs ? 'Fachada y arquitectura histórica del Edificio Skol en Marbella' : 'Historic exterior architecture of Edificio Skol in Marbella'}
+          loading="lazy"
+          class="h-72 w-full rounded-2xl border border-[#DCE8F2] object-cover shadow-sm sm:h-88"
+        />
+        <img
+          src="/images/marbella/skol-arch-vertical.jpg"
+          alt={isEs ? 'Bloques y celosías mediterráneas del Edificio Skol' : 'Mediterranean balconies and facade of Edificio Skol'}
+          loading="lazy"
+          class="h-72 w-full rounded-2xl border border-[#DCE8F2] object-cover shadow-sm sm:h-88"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 PISCINAS · RECEPCIÓN 24H · SALIDA DIRECTA A LA PLAYA (CADA UNA CON SU FOTO) -->
+  <section class="border-y border-[#DCE8F2] bg-[#F3F8FC] py-16 lg:py-22">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl" data-reveal>
+        <p class="text-xs font-bold tracking-[0.16em] text-[#199bd1] uppercase">
+          {isEs ? 'Instalaciones y Servicios del Complejo' : 'Complex Facilities & Lifestyle'}
+        </p>
+        <h2 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          {isEs ? 'Todo pensado para unas vacaciones sin preocupaciones' : 'Everything Designed for Effortless Holidays'}
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        {highlights.map((item, idx) => (
+          <article
+            data-reveal
+            style={`--reveal-delay: ${idx * 70}ms`}
+            class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-[#DCE8F2] bg-white shadow-xs"
+          >
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#E7F4FC]">
+              <img
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+              />
+              <span class="absolute top-3 left-3 rounded-full bg-[#064273]/88 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-xs">
+                {item.badge}
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="font-serif text-xl font-semibold text-[#0B2239]">{item.title}</h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-[#4A6278]">{item.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DISTANCIAS REALES A PIE + CTA -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 rounded-3xl border border-[#DCE8F2] bg-[#F8FBFD] p-6 sm:p-10 lg:grid-cols-12 lg:items-center">
+        <div class="lg:col-span-5">
+          <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+            {isEs ? 'Ubicación Privilegiada' : 'Prime Central Location'}
+          </p>
+          <h2 class="mt-2 font-serif text-2xl font-semibold text-[#0B2239] sm:text-3xl">
+            {isEs ? 'Todo a pie desde la puerta del Skol' : 'Everything on Foot From Skol’s Gate'}
+          </h2>
+          <p class="mt-3 text-sm text-[#4A6278]">
+            {isEs
+              ? 'Olvídate del aparcamiento y disfruta Marbella caminando por el Paseo Marítimo y el Casco Antiguo.'
+              : 'Forget parking and explore Marbella’s promenade, beaches and Old Town entirely on foot.'}
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a
+              href={propsHref}
+              class="btn-tactile inline-flex rounded-full bg-[#199bd1] px-6 py-3 text-sm font-bold text-white hover:bg-[#0B6FA4]"
+            >
+              {isEs ? 'Ver Apartamentos en Edificio Skol →' : 'Explore Skol Apartments →'}
+            </a>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Edificio+Skol+Marbella"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-tactile inline-flex rounded-full border border-[#DCE8F2] bg-white px-5 py-3 text-sm font-semibold text-[#0B6FA4] hover:border-[#199bd1]"
+            >
+              📍 Google Maps
+            </a>
+          </div>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2 lg:col-span-7">
+          {walkDistances.map((w) => (
+            <div class="flex items-center justify-between rounded-xl border border-[#DCE8F2] bg-white px-4 py-3.5 shadow-2xs">
+              <span class="text-sm font-medium text-[#0B2239]">{w.place}</span>
+              <span class="rounded-full bg-[#E7F4FC] px-3 py-1 font-mono text-xs font-bold text-[#0B6FA4] tabular-nums">
+                {w.time}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import siteSettings from '../content/singletons/site-settings.json';
+---
+
+<BaseLayout lang="en" title="Legal Notice | MarbellaSkol" description="Legal notice and identification details for MarbellaSkol." canonicalPath="/legal" noindex={true}>
+  <section class="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-semibold text-ink">Legal Notice</h1>
+    <div class="mt-6 space-y-4 text-sm leading-relaxed text-ink-muted">
+      <p><strong>Owner:</strong> {siteSettings.legalCompanyName}</p>
+      <p><strong>Tax ID:</strong> {siteSettings.legalTaxId}</p>
+      <p><strong>Address:</strong> {siteSettings.address}</p>
+      <p><strong>Email:</strong> {siteSettings.email}</p>
+      <p>All tourist holiday apartments listed on {siteSettings.domain} hold their corresponding Junta de Andalucía tourist licence (VFT/VUT) displayed on each individual listing.</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,81 @@
+{
+  "slug": "palm-beach-2f-apartment-marbella-centre",
+  "unitCode": "Palm Beach 2F",
+  "internalRef": "PB-0002F-MC",
+  "vftLicense": "VFT/MA/26842",
+  "isActive": true,
+  "featured": false,
+  "ownerrez": {
+    "propertyId": 448419,
+    "propertyUuid": "9bf16c38043d4e6b9f87a986d4a4986b",
+    "calendarWidgetIdEn": "761f8cde0b0349689c1686472e715d18",
+    "calendarWidgetIdEs": "89562ea5844c46feb7203700cb7fdb9b",
+    "bookingWidgetIdEn": "28cc127ddb934140ac64a177e4c165f7",
+    "bookingWidgetIdEs": "68bf8bcdcc45466f80a9122cb390023f",
+    "publicUrl": ""
+  },
+  "category": "apartment",
+  "building": "Palm Beach",
+  "zone": "Marbella Centre",
+  "bedrooms": 2,
+  "bathrooms": 1.0,
+  "maxGuests": 4,
+  "areaSqm": 0,
+  "seaView": false,
+  "beachfront": true,
+  "orientation": "",
+  "location": {
+    "address": "Gregorio Marañon 8, Marbella, Málaga",
+    "latitude": 36.507704539252,
+    "longitude": -4.896401515046
+  },
+  "contentEn": {
+    "title": "Palm Beach 2F – Stunning apartment facing the sea and the promenade in Marbella",
+    "summary": "free wifi A Stylish Seaside Retreat in the Heart of Marbella – Palm Beach 2-F Have a wonderful stay in this spacious and high-quality 75m² apartment, perfectly designed for a relaxing escape on the Costa del Sol. This modern apartment offer",
+    "description": "free wifi\n\n A Stylish Seaside Retreat in the Heart of Marbella – Palm Beach 2-F\n\n \n\n Have a wonderful stay in this spacious and high-quality 75m² apartment, perfectly designed for a relaxing escape on the Costa del Sol. This modern apartment offers comfort, style, and an unbeatable location directly above the paseo marítimo of Marbella, with stunning views of the beach and the sea.\n\n \n\n The Palm Beach 2-F apartment features a smart and cozy layout with two beautiful bedrooms, ideal for families. One bedroom comes with a comfortable double bed, while the other has two single beds, ensuring flexibility for all guests. The apartment also includes a spacious living room, a fully equipped kitchen, and two terraces. The large southeast-facing terrace in the master bedroom is the perfect spot to enjoy the sunshine and incredible sea views.\n\n \n\n This stylish apartment is equipped with everything you need for an enjoyable holiday, including a flat-screen TV, high-speed Wi-Fi, and a modern kitchen with all the essentials. Whether you’re here to relax or work remotely, the apartment provides the perfect base for your Marbella getaway.\n\n \n\n Prime Location: Situated on the second floor of the Palm Beach building, this apartment is directly above the paseo marítimo, offering unobstructed views of the beach and sea. You’ll be just steps from the beautiful Fontanilla Beach, and with bars, restaurants, supermarkets, and gyms all nearby, you won’t need a car. Everything is within walking distance, and public transport is easily accessible.\n\n \n\n Additional Information:\n The apartment has its own Wi-Fi, ideal for remote working.\n Private A/C.\n Check-in (from 4pm): The keys will be in a key box at our office. We’ll provide you with the necessary information before your arrival. Please inform us of your estimated arrival time at least 48 hours in advance.\n Bed linen and a set of towels (including beach/pool towels) per guest are included in the rental price.\n This property includes a parking spot in the same building underground.\n\n Don’t miss the chance to experience the best of Marbella with a stay at Palm Beach 2-F – the perfect spot for relaxation, family time, and everything in between!",
+    "amenities": [
+      "24h. Security",
+      "Air conditioning",
+      "Air Conditioning Hot/Cold",
+      "Bathroom towels",
+      "Beach Front",
+      "Beach/Pool towels",
+      "Coffe Maker"
+    ]
+  },
+  "contentEs": {
+    "title": "Palm Beach 2F – Impresionante apartamento frente al mar y al paseo marítimo en Marbella",
+    "summary": "wifi gratis Un elegante refugio junto al mar en el corazón de Marbella: Palm Beach 2-F Disfrute de una maravillosa estancia en este espacioso y lujoso apartamento de 75 m², ideal para una escapada relajante a la Costa del Sol. Ubicado en el",
+    "description": "wifi gratis\n\n Un elegante refugio junto al mar en el corazón de Marbella: Palm Beach 2-F\n\n Disfrute de una maravillosa estancia en este espacioso y lujoso apartamento de 75 m², ideal para una escapada relajante a la Costa del Sol. Ubicado en el prestigioso edificio Skol, este moderno apartamento ofrece comodidad, estilo y una ubicación inmejorable justo encima del paseo marítimo de Marbella, con impresionantes vistas a la playa y al mar.\n\n \n\n El apartamento Palm Beach 2-F cuenta con una distribución elegante y acogedora con dos preciosos dormitorios, ideales para familias. Un dormitorio cuenta con una cómoda cama doble, mientras que el otro tiene dos camas individuales, lo que garantiza flexibilidad para todos los huéspedes. El apartamento también incluye un amplio salón, una cocina totalmente equipada y dos terrazas. La amplia terraza orientada al sureste del dormitorio principal es el lugar perfecto para disfrutar del sol y de las increíbles vistas al mar.\n\n \n\n Este elegante apartamento está equipado con todo lo necesario para unas vacaciones inolvidables, incluyendo un televisor de pantalla plana, wifi de alta velocidad y una cocina moderna con todo lo esencial. Tanto si viene para relajarse como para teletrabajar, el apartamento es la base perfecta para su escapada a Marbella.\n\n \n\n Ubicación privilegiada: situado en la segunda planta del edificio Palm Beach, este apartamento se encuentra justo encima del paseo marítimo y ofrece vistas despejadas de la playa y el mar. Estará a solo unos pasos de la preciosa playa de Fontanilla y, con bares, restaurantes, supermercados y gimnasios en las inmediaciones, no necesitará coche. Todo está a poca distancia a pie y el transporte público es fácilmente accesible.\n\n \n\n Información adicional:\n🌐 El apartamento cuenta con wifi propio, ideal para teletrabajar.\n❄ Aire acondicionado privado.\n🔑 Check-in (a partir de las 16:00): Las llaves estarán en una caja de llaves en nuestra oficina. Le proporcionaremos la información necesaria antes de su llegada. Por favor, infórmenos de su hora estimada de llegada con al menos 48 horas de antelación.\n🛌 La ropa de cama y un juego de toallas (incluidas las de playa/piscina) por persona están incluidas en el precio del alquiler.\n🚗 La propiedad tiene parking propio, plaza 7.",
+    "amenities": [
+      "24h. Security",
+      "Aire Acondicionado",
+      "Aire Acondicionado Frío/Calor",
+      "Máquina de Café",
+      "Primera Línea de Playa",
+      "Toallas de baño",
+      "Toallas de Playa/Piscina"
+    ]
+  },
+  "coverImage": "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-2F_Views_001_New-1110x623.png",
+  "gallery": [
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-2F_Views_001_New-1110x623.png",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-40-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-20-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-30-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-8-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-29-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-32-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-2-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-3-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-5-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-6-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-7-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-9-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-11-en-tamano-grande-1110x623.jpeg",
+    "https://www.marbellaskol.com/wp-content/uploads/2025/02/Palm-Beach-13-en-tamano-grande-1110x623.jpeg"
+  ],
+  "legacyWpUrlEn": "/properties/palm-beach-2-f/",
+  "legacyWpUrlEs": "/es/properties/palm-beach-2f-impresionante-apartamento-frente-al-mar-y-al-paseo-maritimo-en-marbella/"
+}

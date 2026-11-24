@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import siteSettings from '../../content/singletons/site-settings.json';
+---
+
+<BaseLayout lang="es" title="Política de Privacidad | MarbellaSkol" description="Política de privacidad y protección de datos RGPD de MarbellaSkol." canonicalPath="/es/privacidad" noindex={true}>
+  <section class="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-semibold text-ink">Política de Privacidad</h1>
+    <div class="mt-6 space-y-4 text-sm leading-relaxed text-ink-muted">
+      <p>Los datos facilitados mediante formularios de consulta o reservas directas gestionadas con OwnerRez se tratan exclusivamente para atender tu solicitud, formalizar el alojamiento y cumplir el registro legal de viajeros en España.</p>
+      <p>Puedes ejercer tus derechos de acceso, rectificación o supresión escribiendo a <a href={`mailto:${siteSettings.email}`} class="text-sea underline">{siteSettings.email}</a>.</p>
+    </div>
+  </section>
+</BaseLayout>

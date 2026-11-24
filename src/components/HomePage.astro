@@ -1,0 +1,381 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroReel from './islands/HeroReel';
+import PartnerSlider from './PartnerSlider.astro';
+import TeamSection from './TeamSection.astro';
+import GoogleReviewsSection from './islands/GoogleReviewsSection';
+import home from '../content/singletons/home.json';
+import siteSettings from '../content/singletons/site-settings.json';
+import { toPropertyCard } from '../lib/properties';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const allProps = await getCollection('properties', ({ data }) => data.isActive);
+const featuredRaw = allProps
+  .filter((p) => p.data.featured || (p.data.ownerrez.propertyId > 0 && Boolean(p.data.coverImage)))
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured))
+  .slice(0, 12);
+const featured = (featuredRaw.length > 0 ? featuredRaw : allProps.slice(0, 12)).map((p) => ({
+  ...toPropertyCard(p, lang),
+  photoCount: p.data.gallery.length,
+}));
+
+const faqsRaw = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order);
+const totalCount = allProps.length;
+
+const seoTitle = lang === 'es' ? home.seo.titleEs : home.seo.titleEn;
+const seoDesc = lang === 'es' ? home.seo.descriptionEs : home.seo.descriptionEn;
+const canonicalPath = lang === 'es' ? '/es' : '/';
+const propsHref = lang === 'es' ? '/es/propiedades' : '/properties';
+const skolHref = lang === 'es' ? '/es/edificio-skol' : '/skol-building';
+
+const schemas = [
+  {
+    '@type': 'LodgingBusiness',
+    name: siteSettings.brandName,
+    url: `${siteSettings.domain}${canonicalPath === '/' ? '/' : canonicalPath}`,
+    telephone: siteSettings.phoneMobile,
+    email: siteSettings.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Edificio Skol, Av. Arias Maldonado 16',
+      addressLocality: 'Marbella',
+      addressRegion: 'Málaga',
+      postalCode: '29602',
+      addressCountry: 'ES',
+    },
+    sameAs: [siteSettings.facebookUrl, siteSettings.instagramUrl, siteSettings.youtubeUrl],
+  },
+  ...(faqsRaw.length > 0
+    ? [
+        {
+          '@type': 'FAQPage',
+          mainEntity: faqsRaw.map((f) => ({
+            '@type': 'Question',
+            name: lang === 'es' ? f.data.questionEs : f.data.questionEn,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: lang === 'es' ? f.data.answerEs : f.data.answerEn,
+            },
+          })),
+        },
+      ]
+    : []),
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={seoTitle}
+  description={seoDesc}
+  canonicalPath={canonicalPath}
+  ogImage="/images/hero-skol.jpg"
+  schemas={schemas}
+>
+  <!-- 1. HERO DINÁMICO 5 ESCENAS (SKOL · PLAYAS · GASTRONOMÍA · GOLF · OCIO) -->
+  <HeroReel
+    lang={lang}
+    kicker={lang === 'es' ? home.hero.kickerEs : home.hero.kickerEn}
+    headline={lang === 'es' ? home.hero.headlineEs : home.hero.headlineEn}
+    subheadline={lang === 'es' ? home.hero.subheadlineEs : home.hero.subheadlineEn}
+    totalCount={totalCount}
+    client:load
+  />
+
+  <!-- 2. FRANJA DE CONFIANZA Y CIFRAS REALES -->
+  <section id="apartamentos" class="scroll-mt-20 border-b border-[#DCE8F2] bg-[#F3F8FC] py-7">
+    <div class="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
+      <div class="rounded-2xl border border-[#DCE8F2] bg-white px-5 py-4 text-center shadow-2xs" data-reveal>
+        <p class="font-mono text-2xl font-bold text-[#0B6FA4] tabular-nums">{totalCount}+</p>
+        <p class="mt-1 text-xs font-semibold text-[#4A6278]">
+          {lang === 'es' ? 'Apartamentos Verificados' : 'Verified Apartments'}
+        </p>
+      </div>
+      <div class="rounded-2xl border border-[#DCE8F2] bg-white px-5 py-4 text-center shadow-2xs" data-reveal style="--reveal-delay: 60ms">
+        <p class="font-mono text-2xl font-bold text-[#199bd1] tabular-nums">300+</p>
+        <p class="mt-1 text-xs font-semibold text-[#4A6278]">
+          {lang === 'es' ? 'Días de Sol al Año' : 'Sunny Days a Year'}
+        </p>
+      </div>
+      <div class="rounded-2xl border border-[#DCE8F2] bg-white px-5 py-4 text-center shadow-2xs" data-reveal style="--reveal-delay: 120ms">
+        <p class="font-mono text-2xl font-bold text-[#0B6FA4] tabular-nums">24/7</p>
+        <p class="mt-1 text-xs font-semibold text-[#4A6278]">
+          {lang === 'es' ? 'Recepción Edificio Skol' : 'Skol Building Reception'}
+        </p>
+      </div>
+      <div class="rounded-2xl border border-[#DCE8F2] bg-white px-5 py-4 text-center shadow-2xs" data-reveal style="--reveal-delay: 180ms">
+        <p class="font-mono text-2xl font-bold text-[#0D7A67] tabular-nums">0% OTA</p>
+        <p class="mt-1 text-xs font-semibold text-[#4A6278]">
+          {lang === 'es' ? 'Pago SSL Directo Seguro' : 'Direct SSL Secure Payment'}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. APARTAMENTOS DESTACADOS (ESTILO BLANCO Y AZUL LUMINOSO) -->
+  <section class="bg-[#F8FBFD] py-16 lg:py-22">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+            {lang === 'es' ? 'Selección Directa en Primera Línea' : 'Direct Beachfront Collection'}
+          </p>
+          <h2 class="mt-2 text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+            {lang === 'es' ? home.featuredSection.titleEs : home.featuredSection.titleEn}
+          </h2>
+          <p class="mt-3 max-w-2xl text-base text-[#4A6278]">
+            {lang === 'es' ? home.featuredSection.subtitleEs : home.featuredSection.subtitleEn}
+          </p>
+        </div>
+        <a
+          href={propsHref}
+          class="btn-tactile inline-flex shrink-0 items-center rounded-full border-2 border-[#199bd1] bg-white px-6 py-2.5 text-sm font-semibold text-[#0B6FA4] hover:bg-[#199bd1] hover:text-white"
+        >
+          {lang === 'es' ? `Ver los ${totalCount} apartamentos →` : `See all ${totalCount} properties →`}
+        </a>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {featured.map((prop) => (
+          <article class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-[#DCE8F2] bg-white shadow-xs">
+            <a href={prop.href} class="relative block aspect-[16/10] overflow-hidden bg-[#E7F4FC]">
+              <img
+                src={prop.coverImage}
+                alt={prop.title}
+                loading="lazy"
+                decoding="async"
+                referrerpolicy="no-referrer"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#064273]/70 to-transparent" aria-hidden="true" />
+              <span class="absolute top-3 right-3 rounded-md bg-[#199bd1]/95 px-2.5 py-1 text-[11px] font-semibold text-white shadow-xs">
+                {lang === 'es' ? 'Alquiler Vacacional' : 'Holiday Rentals'}
+              </span>
+              <span class="absolute bottom-3 left-3 text-xs font-medium text-white drop-shadow-xs">
+                📍 {prop.building}, {prop.zone}
+              </span>
+              {prop.photoCount > 0 && (
+                <span class="absolute right-3 bottom-3 rounded-md bg-[#064273]/75 px-2 py-0.5 font-mono text-[11px] font-semibold text-white">
+                  📷 {prop.photoCount}
+                </span>
+              )}
+            </a>
+
+            <div class="flex flex-1 flex-col p-5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="rounded-full bg-[#E7F4FC] px-2.5 py-0.5 font-mono text-xs font-semibold text-[#0B6FA4]">
+                  {prop.unitCode}
+                </span>
+                {prop.seaView && (
+                  <span class="text-xs font-semibold text-[#199bd1]">
+                    {lang === 'es' ? 'Vistas al mar' : 'Sea Views'}
+                  </span>
+                )}
+              </div>
+
+              <h3 class="mt-2.5 line-clamp-2 font-serif text-lg leading-snug font-semibold text-[#0B2239]">
+                <a href={prop.href} class="hover:text-[#0B6FA4]">
+                  {prop.title}
+                </a>
+              </h3>
+
+              <p class="mt-2 line-clamp-2 text-xs leading-relaxed text-[#4A6278]">
+                {prop.summary}
+              </p>
+
+              <div class="mt-4 flex items-center gap-4 border-t border-[#EBF3FA] pt-3.5 text-xs font-semibold text-[#334E68] tabular-nums">
+                <span>
+                  🛏 {prop.bedrooms === 0 ? (lang === 'es' ? 'Estudio' : 'Studio') : prop.bedrooms}
+                </span>
+                <span>🛁 {prop.bathrooms}</span>
+                <span>👥 {prop.maxGuests}</span>
+                <a href={prop.href} class="ml-auto text-[#0B6FA4] hover:text-[#199bd1]">
+                  {lang === 'es' ? 'Reservar →' : 'Book Direct →'}
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-12 text-center">
+        <a
+          href={propsHref}
+          class="btn-tactile inline-flex items-center rounded-full border-2 border-[#199bd1] bg-white px-8 py-3 text-sm font-bold tracking-wide text-[#0B6FA4] uppercase hover:bg-[#199bd1] hover:text-white"
+        >
+          {lang === 'es' ? 'Ver más propiedades' : 'See more properties'}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SECCIÓN EDITORIAL "300 DÍAS DE SOL EN LA COSTA DEL SOL" (3 COLUMNAS) -->
+  <section class="border-y border-[#DCE8F2] bg-white py-16 lg:py-22">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h2 class="mx-auto max-w-2xl text-center font-serif text-3xl leading-snug font-semibold text-[#0B2239] sm:text-4xl">
+        {lang === 'es'
+          ? '“Con más de 300 días de sol al año en la Costa del Sol, ¿por qué no?”'
+          : '“With over 300 sunny days a year on the Costa del Sol, why not?”'}
+      </h2>
+
+      <div class="mt-10 grid gap-8 text-sm leading-relaxed text-[#4A6278] md:grid-cols-3">
+        <div class="space-y-4">
+          <p>
+            {lang === 'es'
+              ? 'En Marbella el sol es cálido, el cielo azul y las opciones para disfrutar son infinitas: playas de arena dorada, campos de golf de primer nivel, puerto deportivo, tiendas exclusivas y gastronomía mediterránea.'
+              : 'In Marbella, warm sunshine, clear blue skies and Mediterranean living come together effortlessly — golden beaches, renowned golf courses, vibrant promenade dining and the charm of the historic Old Town.'}
+          </p>
+          <p>
+            {lang === 'es'
+              ? 'Si planeas vacaciones o viaje de trabajo y estás valorando un hotel, nuestros apartamentos totalmente equipados ofrecen la misma comodidad —o superior— con un ahorro de hasta un 60%.'
+              : 'Whether you are planning a holiday or a remote-work stay, our fully furnished beachfront apartments deliver privacy, space and sea views at rates up to 60% below comparable hotel stays.'}
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <p>
+            {lang === 'es'
+              ? 'Gestionamos directamente algunos de los mejores apartamentos privados en primera línea de playa en el Edificio Skol y el centro de Marbella, todos revisados personalmente y equipados con ropa de cama, toallas de playa y Wi-Fi de alta velocidad.'
+              : 'We personally manage a curated portfolio of private beachfront homes in Edificio Skol and central Marbella — spotless, licensed and prepared with crisp linens, beach towels and fast Wi-Fi.'}
+          </p>
+          <p>
+            {lang === 'es'
+              ? 'También disponemos de apartamentos exclusivos en Estepona (Bahía de la Plata y Mar Azul), junto al Hotel Kempinski 5*, con terrazas panorámicas y vistas a Gibraltar y la costa africana.'
+              : 'We also offer select luxury residences near Estepona (Bahía de la Plata and Mar Azul), close to the 5-star Kempinski Hotel, featuring panoramic terraces overlooking Gibraltar and the African coast.'}
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <p>
+            {lang === 'es'
+              ? 'Además del alquiler vacacional, te asesoramos en la compra y gestión integral de propiedades en Marbella y la Costa del Sol para rentabilizar tu vivienda con total tranquilidad durante todo el año.'
+              : 'Beyond holiday rentals, we also guide buyers looking for a permanent home or investment property in Marbella — and can integrate your apartment into our year-round rental portfolio.'}
+          </p>
+          <p class="font-semibold text-[#0B6FA4]">
+            {lang === 'es'
+              ? 'Cientos de huéspedes repiten con nosotros año tras año. Reserva directo y disfruta de Marbella desde primera línea.'
+              : 'Hundreds of returning guests stay with us year after year. Book direct and experience Marbella from the front row.'}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. BENTO EDIFICIO SKOL (BLANCO Y AZUL MEDITERRÁNEO) -->
+  <section class="bg-[#F3F8FC] py-16 lg:py-22">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl">
+        <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+          {lang === 'es' ? 'Ubicación Inmejorable' : 'Unbeatable Beachfront Location'}
+        </p>
+        <h2 class="mt-2 text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          {lang === 'es' ? 'Edificio Skol: primera línea real en Marbella' : 'Edificio Skol: True Frontline Living in Marbella'}
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-12">
+        <div class="overflow-hidden rounded-2xl border border-[#DCE8F2] bg-white shadow-xs lg:col-span-7" data-reveal>
+          <img
+            src="/images/marbella/skol-pools-real.jpg"
+            alt={lang === 'es' ? 'Piscinas y jardines reales del Edificio Skol frente al mar en Marbella' : 'Real swimming pools and gardens of Edificio Skol beachfront Marbella'}
+            loading="lazy"
+            class="h-72 w-full object-cover sm:h-96"
+          />
+          <div class="p-6">
+            <h3 class="font-serif text-xl font-semibold text-[#0B2239]">
+              {lang === 'es' ? '3 piscinas, jardines tropicales y salida directa al Paseo Marítimo' : '3 Pools, Tropical Gardens & Direct Promenade Access'}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-[#4A6278]">
+              {lang === 'es'
+                ? 'Baja en ascensor directamente a los jardines comunitarios y a la Playa de la Fontanilla. Recepción 24 horas y cafetín de piscina en temporada.'
+                : 'Step directly from the gardens onto Marbella’s Paseo Marítimo and La Fontanilla Beach. 24-hour reception desk and seasonal poolside café.'}
+            </p>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:col-span-5">
+          <div class="overflow-hidden rounded-2xl border border-[#DCE8F2] bg-white shadow-xs" data-reveal style="--reveal-delay: 80ms">
+            <img
+              src="/images/marbella/fontanilla-real.jpg"
+              alt={lang === 'es' ? 'Playa de la Fontanilla en Marbella' : 'La Fontanilla Beach in Marbella'}
+              loading="lazy"
+              class="h-44 w-full object-cover"
+            />
+            <div class="p-5">
+              <h3 class="font-serif text-lg font-semibold text-[#0B2239]">
+                {lang === 'es' ? 'Todo a pie, sin necesidad de coche' : 'Walk Everywhere — No Car Needed'}
+              </h3>
+              <p class="mt-1.5 text-sm text-[#4A6278]">
+                {lang === 'es'
+                  ? 'A 2 minutos del Puerto Deportivo y Parque de la Constitución, y a 8 minutos caminando del Casco Antiguo.'
+                  : '2 minutes to Marbella Marina and Constitution Park, and an 8-minute stroll to Marbella Old Town.'}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-between rounded-2xl bg-gradient-to-br from-[#0B6FA4] to-[#064273] p-6 text-white shadow-md" data-reveal style="--reveal-delay: 140ms">
+            <div>
+              <p class="text-xs font-bold tracking-[0.14em] text-[#9BE0FF] uppercase">
+                {lang === 'es' ? 'Pago 100% Seguro · SSL' : '100% Secure Payment · SSL'}
+              </p>
+              <h3 class="mt-2 font-serif text-2xl font-semibold">
+                {lang === 'es' ? 'Reserva directa con mejor tarifa garantizada' : 'Book Direct with Best Rate Guaranteed'}
+              </h3>
+              <p class="mt-2 text-sm text-white/90">
+                {lang === 'es'
+                  ? 'Precios transparentes, pago cifrado con Visa, Mastercard o PayPal y atención presencial en el Edificio Skol.'
+                  : 'Transparent pricing, encrypted Visa, Mastercard or PayPal checkout and personal on-site support.'}
+              </p>
+            </div>
+            <div class="mt-6">
+              <a
+                href={skolHref}
+                class="btn-tactile inline-flex rounded-full bg-white px-5 py-2.5 text-xs font-bold text-[#064273] hover:bg-[#E7F4FC]"
+              >
+                {lang === 'es' ? 'Descubrir el Edificio Skol →' : 'Discover Edificio Skol →'}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5B. EQUIPO REAL DE MARBELLASKOL -->
+  <TeamSection lang={lang} />
+
+  <!-- 5C. RESEÑAS DE GOOGLE BUSINESS PROFILE -->
+  <GoogleReviewsSection lang={lang} client:load />
+
+  <!-- 6. PREGUNTAS FRECUENTES GEO -->
+  {faqsRaw.length > 0 && (
+    <section class="bg-white py-16 lg:py-20">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <h2 class="text-center text-3xl font-semibold text-[#0B2239]">
+          {lang === 'es' ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}
+        </h2>
+        <div class="mt-8 space-y-3">
+          {faqsRaw.map((faq) => (
+            <details class="group rounded-2xl border border-[#DCE8F2] bg-[#F8FBFD] p-5 open:border-[#199bd1] open:bg-white">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg font-semibold text-[#0B2239]">
+                <span>{lang === 'es' ? faq.data.questionEs : faq.data.questionEn}</span>
+                <span class="font-mono text-[#199bd1] transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed text-[#4A6278]">
+                {lang === 'es' ? faq.data.answerEs : faq.data.answerEn}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 7. SLIDER DE COMPAÑÍAS Y PORTALES AL FINAL DE LA WEB -->
+  <PartnerSlider lang={lang} />
+</BaseLayout>

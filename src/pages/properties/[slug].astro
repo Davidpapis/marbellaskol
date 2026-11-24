@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import PropertyDetailPage from '../../components/PropertyDetailPage.astro';
+
+export async function getStaticPaths() {
+  const properties = await getCollection('properties', ({ data }) => data.isActive);
+  return properties.map((property) => ({
+    params: { slug: property.data.slug },
+    props: { property },
+  }));
+}
+
+const { property } = Astro.props;
+---
+
+<PropertyDetailPage property={property} lang="en" />

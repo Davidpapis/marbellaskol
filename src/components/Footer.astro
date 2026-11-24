@@ -1,0 +1,121 @@
+---
+import siteSettings from '../content/singletons/site-settings.json';
+import { NAV_ITEMS, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const navItems = NAV_ITEMS[lang];
+const year = new Date().getFullYear();
+const legalLinks =
+  lang === 'es'
+    ? [
+        { label: 'Aviso Legal', href: '/es/aviso-legal' },
+        { label: 'Privacidad', href: '/es/privacidad' },
+        { label: 'Cookies', href: '/es/cookies' },
+      ]
+    : [
+        { label: 'Legal Notice', href: '/legal' },
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Cookies', href: '/cookies' },
+      ];
+---
+
+<footer class="border-t border-[#DCE8F2] bg-[#F3F8FC] text-[#0B2239]">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <img
+        src="/images/marbellaskol-logo.png"
+        alt="MarbellaSkol"
+        width="190"
+        height="52"
+        class="h-11 w-auto object-contain"
+      />
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-[#4A6278]">
+        {lang === 'es'
+          ? 'Especialistas en apartamentos vacacionales frente al mar en el Edificio Skol y el centro de Marbella. Reserva directa con disponibilidad real.'
+          : 'Beachfront holiday apartment specialists in Edificio Skol and Marbella Centre. Direct bookings with real-time availability.'}
+      </p>
+      <p class="mt-4 text-xs text-[#4A6278]">{siteSettings.address}</p>
+    </div>
+
+    <div>
+      <h2 class="font-sans text-xs font-bold tracking-[0.14em] text-[#0B6FA4] uppercase">
+        {lang === 'es' ? 'Explorar' : 'Explore'}
+      </h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} class="text-[#4A6278] transition-colors hover:text-[#0B6FA4]">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="font-sans text-xs font-bold tracking-[0.14em] text-[#0B6FA4] uppercase">
+        {lang === 'es' ? 'Contacto Directo' : 'Direct Contact'}
+      </h2>
+      <ul class="mt-4 space-y-2.5 text-sm text-[#4A6278]">
+        <li>
+          <a href={`tel:${siteSettings.phoneMobile.replace(/\s+/g, '')}`} class="font-semibold text-[#0B2239] hover:text-[#0B6FA4]">
+            {siteSettings.phoneMobile}
+          </a>
+        </li>
+        <li>
+          <a href={`tel:${siteSettings.phoneLandline.replace(/\s+/g, '')}`} class="hover:text-[#0B6FA4]">
+            {siteSettings.phoneLandline}
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${siteSettings.email}`} class="hover:text-[#0B6FA4]">
+            {siteSettings.email}
+          </a>
+        </li>
+        <li class="flex flex-wrap items-center gap-2 pt-2">
+          <a
+            href={`https://wa.me/${siteSettings.whatsappNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-tactile inline-flex items-center rounded-full bg-[#199bd1] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#0B6FA4]"
+          >
+            WhatsApp Direct
+          </a>
+          <a
+            href={siteSettings.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full border border-[#DCE8F2] bg-white px-3 py-1.5 text-xs font-semibold text-[#0B6FA4] hover:border-[#199bd1]"
+          >
+            Instagram
+          </a>
+          <a
+            href={siteSettings.facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full border border-[#DCE8F2] bg-white px-3 py-1.5 text-xs font-semibold text-[#0B6FA4] hover:border-[#199bd1]"
+          >
+            Facebook
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-[#DCE8F2] bg-white">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-[#4A6278] sm:flex-row sm:px-6 lg:px-8">
+      <p>© {year} {siteSettings.brandName}. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}</p>
+      <div class="flex items-center gap-5">
+        {legalLinks.map((item) => (
+          <a href={item.href} class="hover:text-[#0B6FA4]">
+            {item.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

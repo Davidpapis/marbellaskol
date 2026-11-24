@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+@theme {
+  /* Tipografía editorial mediterránea */
+  --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Paleta Mediterráneo Blanco y Azules (luminosa, costera, sin beige/marrón) */
+  --color-sand-50: #FFFFFF;        /* Fondo principal blanco puro mediterráneo */
+  --color-sand-100: #F3F8FC;       /* Superficie alterna blanco-azul brisa marina */
+  --color-sand-200: #DCE8F2;       /* Bordes hairline azul cielo suave */
+  --color-sand-300: #B8D2E6;       /* Bordes acentuados */
+  --color-surface: #FFFFFF;        /* Tarjetas elevadas blanco puro */
+
+  --color-ink: #0B2239;            /* Azul marino tinta para titulares y cuerpo (> 14:1) */
+  --color-ink-muted: #4A6278;      /* Azul pizarra suave para texto secundario (> 6:1) */
+
+  --color-sea: #0B5D8E;            /* Azul Mediterráneo principal (> 7:1 sobre blanco) */
+  --color-sea-dark: #064273;       /* Azul Mediterráneo profundo (hover / activos) */
+  --color-sea-light: #1589C9;      /* Azul turquesa costero brillante */
+  --color-sea-tint: #E7F4FC;       /* Fondo tintado azul agua claro */
+
+  --color-terracotta: #1589C9;     /* Reasignado a azul costero luminoso */
+  --color-terracotta-tint: #E7F4FC;
+  --color-saving: #0D7A67;         /* Verde turquesa reserva directa / disponible */
+  --color-saving-tint: #E6F6F2;
+
+  /* Curvas de movimiento (Emil Kowalski + Apple HIG) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #ffffff;
+    color: var(--color-ink);
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    text-wrap: balance;
+    font-optical-sizing: auto;
+    letter-spacing: -0.02em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sea-light);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Microinteracción táctil GPU-only (< 160ms) */
+.btn-tactile {
+  transition:
+    transform 140ms var(--ease-out),
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    color 180ms var(--ease-out);
+}
+
+.btn-tactile:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-lift {
+    transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out), border-color 220ms var(--ease-out);
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px -12px rgba(6, 66, 115, 0.14);
+    border-color: var(--color-sand-300);
+  }
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-sea);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 0.5rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Coreografía de scroll-reveal GPU-only (transform + opacity, curva --ease-out) */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 520ms var(--ease-out) var(--reveal-delay, 0ms),
+    transform 560ms var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+/* Vaivén suave del barquito en el logo oficial de MarbellaSkol */
+@keyframes sailboat-swell {
+  0%, 100% {
+    transform: rotate(-2.4deg) translate3d(0, 0.8px, 0);
+  }
+  50% {
+    transform: rotate(2.4deg) translate3d(0, -1px, 0);
+  }
+}
+
+.logo-boat-layer {
+  clip-path: inset(0 72.5% 0 0);
+  transform-origin: 14% 78%;
+  animation: sailboat-swell 4.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.logo-text-layer {
+  clip-path: inset(0 0 0 26.5%);
+}
+
+/* Línea sutil animada de scroll en el Hero a pantalla completa */
+@keyframes hero-scroll-glide {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+}
+
+.hero-scroll-line {
+  animation: hero-scroll-glide 2.2s var(--ease-in-out) infinite;
+  will-change: transform, opacity;
+}
+
+/* Halo azul sutil hacia el exterior en las burbujas del Hero */
+@media (hover: hover) and (pointer: fine) {
+  .bubble-glow {
+    transition:
+      transform 200ms var(--ease-out),
+      background-color 180ms var(--ease-out),
+      box-shadow 220ms var(--ease-out);
+  }
+  .bubble-glow:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 0 0 3px rgba(125, 211, 252, 0.35),
+      0 0 22px 4px rgba(25, 155, 209, 0.45),
+      0 12px 26px -8px rgba(4, 28, 50, 0.28);
+  }
+}
+
+/* Subrayado animado de izquierda a derecha en el menú principal (GPU-only) */
+.nav-link-slide {
+  position: relative;
+}
+
+.nav-link-slide::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.25rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #199bd1, #0b6fa4);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-out);
+}
+
+.nav-link-slide[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link-slide:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Micro-animaciones sutiles aleatorias en los 3 iconos de contacto (GPU-only) */
+@keyframes icon-phone-ring {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(-14deg) scale(1.08); }
+  30% { transform: rotate(14deg) scale(1.08); }
+  45% { transform: rotate(-10deg) scale(1.05); }
+  60% { transform: rotate(10deg) scale(1.05); }
+  75% { transform: rotate(-4deg); }
+}
+
+@keyframes icon-mail-drop {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 1; }
+  38% { transform: translateY(5px) scale(0.82); opacity: 0.25; }
+  55% { transform: translateY(-4px) scale(0.92); opacity: 0.4; }
+  80% { transform: translateY(1px) scale(1.06); opacity: 1; }
+}
+
+@keyframes icon-wa-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  45% { transform: rotate(180deg) scale(1.12); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.anim-phone-ring {
+  animation: icon-phone-ring 560ms var(--ease-out);
+}
+
+.anim-mail-drop {
+  animation: icon-mail-drop 620ms var(--ease-out);
+}
+
+.anim-wa-spin {
+  animation: icon-wa-spin 640ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-header {
+    background-color: #ffffff !important;
+    backdrop-filter: none !important;
+  }
+}

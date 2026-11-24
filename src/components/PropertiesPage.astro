@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PropertiesExplorer from './islands/PropertiesExplorer';
+import { toPropertyCard } from '../lib/properties';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const allProps = await getCollection('properties', ({ data }) => data.isActive);
+const cards = allProps
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || a.data.unitCode.localeCompare(b.data.unitCode))
+  .map((p) => toPropertyCard(p, lang));
+
+const title =
+  lang === 'es'
+    ? 'Apartamentos Vacacionales en Marbella | MarbellaSkol'
+    : 'Beachfront Holiday Apartments in Marbella | MarbellaSkol';
+const description =
+  lang === 'es'
+    ? 'Busca disponibilidad real en nuestros apartamentos del Edificio Skol y Marbella centro. Mapa interactivo y reserva directa sin comisiones.'
+    : 'Check real-time availability across our Edificio Skol and central Marbella holiday apartments. Interactive map and secure direct booking.';
+const canonicalPath = lang === 'es' ? '/es/propiedades' : '/properties';
+---
+
+<BaseLayout lang={lang} title={title} description={description} canonicalPath={canonicalPath}>
+  <link
+    slot="default"
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+    <div class="mb-8">
+      <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+        {lang === 'es' ? 'Disponibilidad en Tiempo Real · Pago Seguro SSL' : 'Live Real-Time Availability · SSL Secure'}
+      </p>
+      <h1 class="mt-2 text-3xl font-semibold text-ink sm:text-4xl">
+        {lang === 'es'
+          ? 'Apartamentos Vacacionales en Marbella'
+          : 'Marbella Beachfront Holiday Apartments'}
+      </h1>
+      <p class="mt-2 max-w-2xl text-sm text-ink-muted sm:text-base">
+        {lang === 'es'
+          ? 'Introduce tus fechas para consultar disponibilidad real al instante y explora cada unidad en el mapa interactivo.'
+          : 'Enter your dates to check instant real-time availability and explore each apartment on the interactive map.'}
+      </p>
+    </div>
+
+    <PropertiesExplorer lang={lang} properties={cards} client:load />
+  </section>
+</BaseLayout>

@@ -1,0 +1,671 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+
+const seoTitle = isEs
+  ? 'Guía de Marbella: Playas, Golf, Gastronomía y Ocio | MarbellaSkol'
+  : 'Marbella Guide: Beaches, Golf, Dining, Monuments & Shows | MarbellaSkol';
+const seoDesc = isEs
+  ? 'Descubre qué hacer en Marbella desde el Edificio Skol: mejores playas, restaurantes, campos de golf, monumentos del Casco Antiguo y espectáculos con rutas en Google Maps.'
+  : 'Explore the best of Marbella from Edificio Skol: frontline beaches, Michelin dining, Golf Valley courses, Old Town monuments and Starlite shows with Google Maps directions.';
+const canonicalPath = isEs ? '/es/marbella' : '/marbella';
+const propsHref = isEs ? '/es/propiedades' : '/properties';
+const mapsLabel = isEs ? 'Cómo llegar en Maps' : 'Directions on Maps';
+
+const mapsLink = (query: string) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+
+const quickNav = [
+  { id: 'playas', label: isEs ? 'Playas' : 'Beaches', icon: '🏖️' },
+  { id: 'gastronomia', label: isEs ? 'Gastronomía' : 'Gastronomy', icon: '🍽️' },
+  { id: 'golf', label: isEs ? 'Campos de Golf' : 'Golf Courses', icon: '⛳' },
+  { id: 'monumentos', label: isEs ? 'Monumentos y Parques' : 'Monuments & Parks', icon: '🏛️' },
+  { id: 'espectaculos', label: isEs ? 'Espectáculos' : 'Shows & Events', icon: '🎭' },
+  { id: 'fiestas', label: isEs ? 'Fiestas del Año' : 'Annual Festivals', icon: '🎉' },
+  { id: 'como-llegar', label: isEs ? 'Cómo Llegar' : 'Getting Here', icon: '✈️' },
+];
+
+const beaches = [
+  {
+    name: isEs ? 'Playa de la Fontanilla' : 'La Fontanilla Beach',
+    distance: isEs ? '1 min a pie desde Skol' : '1 min walk from Skol',
+    tag: isEs ? 'Primera línea' : 'Frontline',
+    image: '/images/marbella/fontanilla-real.jpg',
+    mapsQuery: 'Playa de la Fontanilla Marbella',
+    desc: isEs
+      ? 'Justo frente a los jardines del Edificio Skol. Arena fina, aguas tranquilas, alquiler de hamacas y los mejores chiringuitos del Paseo Marítimo.'
+      : 'Directly in front of Edificio Skol’s gardens. Golden sand, calm Mediterranean waters, sunbeds and lively promenade chiringuitos.',
+  },
+  {
+    name: isEs ? 'Playa de Venus y El Faro' : 'Venus & El Faro Beach',
+    distance: isEs ? '4 min a pie' : '4 min walk',
+    tag: isEs ? 'Familiar · Centro' : 'Family · Central',
+    image: '/images/marbella/beach-venus.jpg',
+    mapsQuery: 'Playa de Venus Marbella',
+    desc: isEs
+      ? 'Junto al Puerto Deportivo y el Parque de la Constitución, ideal para familias con todos los servicios, heladerías y terrazas al atardecer.'
+      : 'Right beside Marbella Marina and Constitution Park — ideal for families, sunset strolls and beachfront cafés.',
+  },
+  {
+    name: isEs ? 'Playa de Nagüeles (Milla de Oro)' : 'Nagüeles Beach (Golden Mile)',
+    distance: isEs ? '15 min a pie / 5 min coche' : '15 min walk / 5 min drive',
+    tag: isEs ? 'Milla de Oro' : 'Golden Mile',
+    image: '/images/marbella/beach-nagueles.jpg',
+    mapsQuery: 'Playa de Nagueles Marbella',
+    desc: isEs
+      ? 'El tramo más icónico junto a Marbella Club y Puente Romano, con muelle panorámico, deportes náuticos y beach clubs exclusivos.'
+      : 'Marbella’s iconic Golden Mile shoreline by Marbella Club and Puente Romano, with its famous pier and luxury beach clubs.',
+  },
+  {
+    name: isEs ? 'Dunas de Artola y Cabopino' : 'Artola Dunes & Cabopino',
+    distance: isEs ? '15 min en coche' : '15 min drive',
+    tag: isEs ? 'Monumento Natural' : 'Natural Reserve',
+    image: '/images/marbella/beach-cabopino.jpg',
+    mapsQuery: 'Dunas de Artola Cabopino Marbella',
+    desc: isEs
+      ? 'Playa virgen protegida rodeada de pasarelas de madera entre dunas naturales, pinos mediterráneos y la histórica Torre Ladrones.'
+      : 'Protected natural sand dunes with wooden boardwalks, Mediterranean pines and crystal-clear turquoise water.',
+  },
+];
+
+const dining = [
+  {
+    name: isEs ? 'Chiringuitos y Espetos Frente al Mar' : 'Beachfront Chiringuitos & Espetos',
+    area: isEs ? 'Paseo Marítimo · 2 min a pie' : 'Seafront Promenade · 2 min walk',
+    image: '/images/marbella/dining-espetos.jpg',
+    mapsQuery: 'Paseo Maritimo Marbella Chiringuitos',
+    desc: isEs
+      ? 'Imprescindible probar los espetos de sardinas a la brasa de leña de olivo, pescaíto frito, arroces marineros y ensalada malagueña con los pies junto al mar.'
+      : 'Sample charcoal-grilled sardine espetos, fresh Mediterranean seafood, paella and chilled sangría steps from the sand.',
+  },
+  {
+    name: isEs ? 'Alta Cocina y Estrellas Michelin' : 'Michelin-Star & Fine Dining',
+    area: isEs ? 'Casco Antiguo y Milla de Oro' : 'Old Town & Golden Mile',
+    image: '/images/marbella/dining-michelin.jpg',
+    mapsQuery: 'Restaurante Skina Marbella',
+    desc: isEs
+      ? 'Marbella es referente gastronómico internacional con restaurantes galardonados como Skina (2★ Michelin), Messina (1★), Back (1★), Lobito de Mar y BiBo de Dani García.'
+      : 'Marbella is a culinary capital featuring Skina (2★ Michelin), Messina (1★), Back (1★), and Dani García’s Lobito de Mar and BiBo.',
+  },
+  {
+    name: isEs ? 'Tapas en el Casco Antiguo' : 'Old Town Tapas & Wine Bars',
+    area: isEs ? 'Plaza de los Naranjos · 8 min a pie' : 'Orange Square · 8 min walk',
+    image: '/images/marbella/dining-tapas.jpg',
+    mapsQuery: 'Plaza de los Naranjos Marbella',
+    desc: isEs
+      ? 'Callejuelas blancas llenas de buganvillas con tabernas andaluzas tradicionales, jamón ibérico, vinos de Ronda y patios con encanto.'
+      : 'Whitewashed flower-lined alleys packed with authentic Andalusian tapas bars, Iberian ham, Ronda wines and hidden courtyards.',
+  },
+];
+
+const golfCourses = [
+  {
+    name: 'Real Club de Golf Las Brisas',
+    meta: isEs ? '18 hoyos · Valle del Golf (12 min)' : '18 holes · Golf Valley (12 min)',
+    image: '/images/marbella/golf-brisas.jpg',
+    mapsQuery: 'Real Club de Golf Las Brisas Marbella',
+    desc: isEs
+      ? 'Diseñado por Robert Trent Jones Sr., famoso por sus jardines botánicos, lagos estratégicos y sede de campeonatos internacionales.'
+      : 'Designed by Robert Trent Jones Sr., renowned for its botanical gardens, water hazards and championship pedigree.',
+  },
+  {
+    name: 'Los Naranjos Golf Club',
+    meta: isEs ? '18 hoyos · Nueva Andalucía (12 min)' : '18 holes · Nueva Andalucía (12 min)',
+    image: '/images/marbella/golf-naranjos.jpg',
+    mapsQuery: 'Los Naranjos Golf Club Marbella',
+    desc: isEs
+      ? 'Calles amplias, greenes rápidos y una de las casas club más animadas de Marbella con vistas a la montaña de La Concha.'
+      : 'Wide fairways, fast greens and one of Marbella’s liveliest clubhouses framed by La Concha mountain.',
+  },
+  {
+    name: 'Aloha Golf Club',
+    meta: isEs ? '18 hoyos · Nueva Andalucía (11 min)' : '18 holes · Nueva Andalucía (11 min)',
+    image: '/images/marbella/golf-aloha.jpg',
+    mapsQuery: 'Aloha Golf Club Marbella',
+    desc: isEs
+      ? 'Sede del Open de Andalucía, recorrido parkland técnico con vistas panorámicas al Mediterráneo y la sierra.'
+      : 'Former Andalusian Open host — a parkland layout offering sweeping views of both the sea and mountains.',
+  },
+  {
+    name: 'Río Real Golf & Santa Clara',
+    meta: isEs ? '18 hoyos · Marbella Este (8 min)' : '18 holes · East Marbella (8 min)',
+    image: '/images/real/estepona-golf.jpg',
+    mapsQuery: 'Rio Real Golf Marbella',
+    desc: isEs
+      ? 'Uno de los campos más cercanos al centro de Marbella, con hoyos que llegan prácticamente hasta la orilla de la playa.'
+      : 'Among the closest courses to central Marbella, with scenic fairways stretching right down toward the beach.',
+  },
+];
+
+const monuments = [
+  {
+    name: isEs ? 'Avenida del Mar · Esculturas de Dalí' : 'Avenida del Mar · Dalí Sculptures',
+    distance: isEs ? '4 min a pie' : '4 min walk',
+    image: '/images/marbella/monument-dali.jpg',
+    mapsQuery: 'Avenida del Mar Marbella',
+    desc: isEs
+      ? 'Museo al aire libre que une el Parque de la Alameda con la playa, exhibiendo diez esculturas originales de bronce de Salvador Dalí.'
+      : 'An open-air marble promenade linking Alameda Park to the beach, lined with ten original bronze sculptures by Salvador Dalí.',
+  },
+  {
+    name: isEs ? 'Casco Antiguo y Plaza de los Naranjos' : 'Historic Old Town & Orange Square',
+    distance: isEs ? '8 min a pie' : '8 min walk',
+    image: '/images/marbella/monument-oldtown.jpg',
+    mapsQuery: 'Casco Antiguo Marbella',
+    desc: isEs
+      ? 'Corazón histórico del siglo XV rodeado de naranjos, la Casa Consistorial, la Ermita de Santiago y calles encaladas con macetas azules.'
+      : '15th-century heart of Marbella surrounded by orange trees, the historic Town Hall, Santiago Chapel and picturesque white alleys.',
+  },
+  {
+    name: isEs ? 'Murallas del Castillo e Iglesia de la Encarnación' : 'Moorish Castle Walls & Encarnación Church',
+    distance: isEs ? '9 min a pie' : '9 min walk',
+    image: '/images/marbella/monument-castle.jpg',
+    mapsQuery: 'Iglesia de Nuestra Senora de la Encarnacion Marbella',
+    desc: isEs
+      ? 'Restos de la alcazaba árabe del siglo XI junto a la majestuosa iglesia barroca y su imponente órgano del Sol Mayor.'
+      : '11th-century Moorish fortress walls standing beside the Baroque Encarnación Church and its renowned Sol Mayor organ.',
+  },
+  {
+    name: isEs ? 'Parque de la Alameda' : 'Parque de la Alameda',
+    distance: isEs ? '5 min a pie' : '5 min walk',
+    image: '/images/marbella/parque-alameda.jpg',
+    mapsQuery: 'Parque de la Alameda Marbella',
+    desc: isEs
+      ? 'Oasis botánico del siglo XVIII a un paso del Skol con su icónica fuente de la Virgen del Rocío, bancos de azulejos andaluces y sombra frondosa junto a la Avenida del Mar.'
+      : '18th-century botanical oasis steps from Skol featuring the iconic Virgen del Rocío fountain, hand-painted Andalusian ceramic benches and tropical shade.',
+  },
+  {
+    name: isEs ? 'Museo del Grabado Español Contemporáneo' : 'Contemporary Spanish Engraving Museum',
+    distance: isEs ? '10 min a pie' : '10 min walk',
+    image: '/images/marbella/monument-museum.jpg',
+    mapsQuery: 'Museo del Grabado Espanol Contemporaneo Marbella',
+    desc: isEs
+      ? 'Ubicado en el Hospital Bazán (s. XVI), alberga una colección única de obra gráfica de Picasso, Miró, Dalí, Goya y Tàpies.'
+      : 'Housed in the 16th-century Bazán Hospital, showcasing graphic masterpieces by Picasso, Miró, Dalí, Goya and Tàpies.',
+  },
+];
+
+const shows = [
+  {
+    name: 'Starlite Occident Festival',
+    tag: isEs ? 'Junio – Agosto · Cantera de Nagüeles' : 'June – August · Nagüeles Quarry',
+    image: '/images/marbella/show-starlite.jpg',
+    mapsQuery: 'Starlite Occident Marbella',
+    desc: isEs
+      ? 'El festival boutique más prestigioso de Europa en un anfiteatro natural excavado en la roca: conciertos de estrellas internacionales, gastronomía y afterparty bajo las estrellas.'
+      : 'Europe’s premier boutique music festival inside a dramatic open-air stone quarry — world-class artists, fine dining and starlit nights.',
+  },
+  {
+    name: isEs ? 'Puerto Banús y Paseos en Barco' : 'Puerto Banús & Sunset Catamarans',
+    tag: isEs ? 'Todo el año · 10 min coche / barco' : 'Year-round · 10 min drive / ferry',
+    image: '/images/marbella/puerto-banus-real.jpg',
+    mapsQuery: 'Puerto Banus Marbella',
+    desc: isEs
+      ? 'Puedes ir en el barco-ferry directo desde el Puerto Deportivo (a 3 min de Skol) hasta Puerto Banús: yates de lujo, boutiques, música en vivo y excursiones para ver delfines.'
+      : 'Catch the coastal ferry from Marbella Marina (3 min from Skol) straight to Puerto Banús for luxury yachts, boutiques, live music and dolphin-watching cruises.',
+  },
+  {
+    name: isEs ? 'Tablao Flamenco Ana María (Los Chatos)' : 'Tablao Flamenco Ana María (Los Chatos)',
+    tag: isEs ? 'Casco Antiguo · 9 min a pie' : 'Old Town · 9 min walk',
+    image: '/images/marbella/show-flamenco.jpg',
+    mapsQuery: 'Tablao Flamenco Ana Maria Marbella',
+    desc: isEs
+      ? 'El espectáculo de flamenco más emblemático y auténtico de Marbella desde 1962 en la Plaza Santo Cristo: cante, guitarra y baile en vivo en un ambiente íntimo inolvidable.'
+      : 'Marbella’s most iconic and authentic flamenco show since 1962 on Plaza Santo Cristo — passionate live singing, guitar and dance in an intimate setting.',
+  },
+  {
+    name: isEs ? 'Teatro Ciudad de Marbella' : 'Marbella City Theatre',
+    tag: isEs ? 'Todo el año · Centro' : 'Year-round · City Centre',
+    image: '/images/marbella/show-teatro.jpg',
+    mapsQuery: 'Teatro Ciudad de Marbella',
+    desc: isEs
+      ? 'Programación cultural durante todo el año con teatro, danza, conciertos sinfónicos, zarzuela y festivales escénicos en el corazón de la ciudad.'
+      : 'Year-round cultural programme featuring theatre, dance, orchestral concerts and performing arts right in central Marbella.',
+  },
+];
+
+const festivals = [
+  {
+    month: isEs ? 'Marzo / Abril' : 'March / April',
+    name: isEs ? 'Semana Santa' : 'Easter Holy Week',
+    desc: isEs
+      ? 'Procesiones históricas recorriendo las calles blancas del Casco Antiguo con música cofrade y ambiente único.'
+      : 'Centuries-old processions winding through the whitewashed Old Town streets accompanied by traditional bands.',
+  },
+  {
+    month: isEs ? 'Junio' : 'June',
+    name: isEs ? 'Feria de San Bernabé' : 'San Bernabé Fair',
+    desc: isEs
+      ? 'Semana grande en honor al patrón de Marbella con casetas, flamenco, gastronomía y fuegos artificiales junto al mar.'
+      : 'Marbella’s vibrant annual town fair celebrating its patron saint with flamenco, music, local cuisine and beachfront fireworks.',
+  },
+  {
+    month: isEs ? '23 de Junio' : '23 June',
+    name: isEs ? 'Noche de San Juan' : 'San Juan Beach Night',
+    desc: isEs
+      ? 'Hogueras, moragas de sardinas y celebración del solsticio de verano en la Playa de la Fontanilla, justo frente al Edificio Skol.'
+      : 'Bonfires, beach music and midnight dips welcoming summer right on La Fontanilla Beach in front of Edificio Skol.',
+  },
+  {
+    month: isEs ? '16 de Julio' : '16 July',
+    name: isEs ? 'Virgen del Carmen' : 'Virgen del Carmen Sea Procession',
+    desc: isEs
+      ? 'Emotiva procesión marinera en barcos engalanados navegando frente al Paseo Marítimo y el Puerto Deportivo.'
+      : 'Traditional maritime procession with decorated fishing boats sailing past Marbella’s seafront promenade.',
+  },
+  {
+    month: isEs ? 'Junio – Agosto' : 'June – August',
+    name: 'Starlite Occident Festival',
+    desc: isEs
+      ? 'Dos meses de conciertos de estrellas internacionales al aire libre en la cantera natural de Nagüeles.'
+      : 'Two months of international superstar concerts under the stars inside the open-air Nagüeles stone quarry.',
+  },
+  {
+    month: isEs ? 'Octubre / Noviembre' : 'October / November',
+    name: isEs ? 'Feria de San Pedro y Día del Tostón' : 'San Pedro Fair & Autumn Chestnuts',
+    desc: isEs
+      ? 'Tradición local con temperaturas suaves de 22 °C, ideal para escapadas tranquilas de otoño y golf.'
+      : 'Authentic local autumn festivities with mild 22 °C sunshine — perfect for relaxed coastal breaks and golf.',
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={seoTitle}
+  description={seoDesc}
+  canonicalPath={canonicalPath}
+  ogImage="/images/real/puerto-banus.jpg"
+>
+  <!-- HERO EDITORIAL GUÍA DE MARBELLA -->
+  <section class="relative overflow-hidden bg-[#064273] text-white">
+    <img
+      src="/images/real/puerto-banus.jpg"
+      alt={isEs ? 'Marbella y Costa del Sol desde el mar' : 'Marbella and Costa del Sol coastline'}
+      class="absolute inset-0 h-full w-full object-cover opacity-55"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#064273]/70 via-[#064273]/45 to-[#064273]/88" aria-hidden="true" />
+
+    <div class="relative mx-auto max-w-7xl px-4 py-18 sm:px-6 lg:px-8 lg:py-24">
+      <p class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-1 text-xs font-bold tracking-[0.14em] uppercase backdrop-blur-md">
+        {isEs ? 'Guía Local · Costa del Sol' : 'Local Insider Guide · Costa del Sol'}
+      </p>
+      <h1 class="mt-5 max-w-3xl font-serif text-4xl leading-tight font-semibold sm:text-5xl lg:text-6xl">
+        {isEs
+          ? 'Qué hacer en Marbella: Playas, Gastronomía, Golf y Cultura'
+          : 'Discover Marbella: Beaches, Dining, Golf, Culture & Shows'}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg">
+        {isEs
+          ? 'Nuestra selección local con fotos, distancias reales desde el Edificio Skol y rutas directas en Google Maps para disfrutar cada día en Marbella.'
+          : 'Our curated local guide with photos, real distances from Edificio Skol and direct Google Maps routes for every spot.'}
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-2.5">
+        {quickNav.map((item) => (
+          <a
+            href={`#${item.id}`}
+            class="btn-tactile inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md hover:bg-white hover:text-[#064273]"
+          >
+            <span aria-hidden="true">{item.icon}</span>
+            <span>{item.label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. PLAYAS -->
+  <section id="playas" class="scroll-mt-24 bg-white py-16 lg:py-22">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl" data-reveal>
+        <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+          {isEs ? '27 km de Litoral Mediterráneo' : '27 km of Mediterranean Coastline'}
+        </p>
+        <h2 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          {isEs ? 'Las Mejores Playas de Marbella' : 'Marbella’s Best Beaches'}
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {beaches.map((b, idx) => (
+          <article
+            data-reveal
+            style={`--reveal-delay: ${idx * 60}ms`}
+            class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-[#DCE8F2] bg-[#F8FBFD] shadow-xs"
+          >
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#E7F4FC]">
+              <img
+                src={b.image}
+                alt={b.name}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+              />
+              <span class="absolute top-3 left-3 rounded-full bg-[#199bd1]/95 px-2.5 py-0.5 text-[11px] font-bold text-white">
+                {b.tag}
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <span class="font-mono text-[11px] font-semibold text-[#0B6FA4]">{b.distance}</span>
+              <h3 class="mt-1.5 font-serif text-lg font-semibold text-[#0B2239]">{b.name}</h3>
+              <p class="mt-2 text-xs leading-relaxed text-[#4A6278]">{b.desc}</p>
+              <a
+                href={mapsLink(b.mapsQuery)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-bold text-[#0B6FA4] hover:text-[#199bd1]"
+              >
+                <span>📍 {mapsLabel} →</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. GASTRONOMÍA Y RESTAURANTES -->
+  <section id="gastronomia" class="scroll-mt-24 border-y border-[#DCE8F2] bg-[#F3F8FC] py-16 lg:py-22">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl" data-reveal>
+        <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+          {isEs ? 'Sabores del Mediterráneo' : 'Flavours of the Mediterranean'}
+        </p>
+        <h2 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          {isEs ? 'Gastronomía y Restaurantes' : 'Dining & Gastronomy'}
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        {dining.map((item, idx) => (
+          <article
+            data-reveal
+            style={`--reveal-delay: ${idx * 70}ms`}
+            class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-[#DCE8F2] bg-white shadow-xs"
+          >
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#E7F4FC]">
+              <img
+                src={item.image}
+                alt={item.name}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <span class="text-xs font-bold text-[#199bd1]">{item.area}</span>
+              <h3 class="mt-1.5 font-serif text-xl font-semibold text-[#0B2239]">{item.name}</h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-[#4A6278]">{item.desc}</p>
+              <a
+                href={mapsLink(item.mapsQuery)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-auto inline-flex items-center gap-1.5 pt-5 text-xs font-bold text-[#0B6FA4] hover:text-[#199bd1]"
+              >
+                <span>📍 {mapsLabel} →</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CAMPOS DE GOLF -->
+  <section id="golf" class="scroll-mt-24 bg-white py-16 lg:py-22">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl" data-reveal>
+        <p class="text-xs font-bold tracking-[0.14em] text-[#0D7A67] uppercase">
+          {isEs ? 'La Costa del Golf · +15 Campos en 20 min' : 'Costa del Golf · 15+ Courses Within 20 Min'}
+        </p>
+        <h2 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          {isEs ? 'Campos de Golf de Campeonato' : 'Championship Golf Valley'}
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {golfCourses.map((g, idx) => (
+          <article
+            data-reveal
+            style={`--reveal-delay: ${idx * 60}ms`}
+            class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-[#DCE8F2] bg-[#F8FBFD] shadow-xs"
+          >
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#E6F6F2]">
+              <img
+                src={g.image}
+                alt={g.name}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <span class="font-mono text-[11px] font-semibold text-[#0D7A67]">{g.meta}</span>
+              <h3 class="mt-1.5 font-serif text-lg font-semibold text-[#0B2239]">{g.name}</h3>
+              <p class="mt-2 text-xs leading-relaxed text-[#4A6278]">{g.desc}</p>
+              <a
+                href={mapsLink(g.mapsQuery)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-bold text-[#0D7A67] hover:text-[#0B6FA4]"
+              >
+                <span>📍 {mapsLabel} →</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. MONUMENTOS Y CULTURA -->
+  <section id="monumentos" class="scroll-mt-24 border-y border-[#DCE8F2] bg-[#F3F8FC] py-16 lg:py-22">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl" data-reveal>
+        <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+          {isEs ? 'Historia, Arte y Casco Antiguo' : 'History, Art & Andalusian Heritage'}
+        </p>
+        <h2 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          {isEs ? 'Monumentos y Paseos Imprescindibles' : 'Monuments & Cultural Walks'}
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        {monuments.map((m, idx) => (
+          <article
+            data-reveal
+            style={`--reveal-delay: ${idx * 65}ms`}
+            class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-[#DCE8F2] bg-white shadow-xs"
+          >
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#E7F4FC]">
+              <img
+                src={m.image}
+                alt={m.name}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+              />
+              <span class="absolute top-3 left-3 rounded-full bg-white/95 px-2.5 py-0.5 font-mono text-[11px] font-bold text-[#0B6FA4]">
+                {m.distance}
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <h3 class="font-serif text-lg font-semibold text-[#0B2239]">{m.name}</h3>
+              <p class="mt-2 text-xs leading-relaxed text-[#4A6278]">{m.desc}</p>
+              <a
+                href={mapsLink(m.mapsQuery)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-bold text-[#0B6FA4] hover:text-[#199bd1]"
+              >
+                <span>📍 {mapsLabel} →</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ESPECTÁCULOS, FESTIVALES Y OCIO -->
+  <section id="espectaculos" class="scroll-mt-24 bg-white py-16 lg:py-22">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl" data-reveal>
+        <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+          {isEs ? 'Música, Noches de Verano y Mar' : 'Concerts, Summer Nights & Sea'}
+        </p>
+        <h2 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239] sm:text-4xl">
+          {isEs ? 'Espectáculos, Eventos y Estilo de Vida' : 'Shows, Festivals & Lifestyle'}
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {shows.map((s, idx) => (
+          <article
+            data-reveal
+            style={`--reveal-delay: ${idx * 70}ms`}
+            class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-[#DCE8F2] bg-[#F8FBFD] shadow-xs"
+          >
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#064273]">
+              <img
+                src={s.image}
+                alt={s.name}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+              />
+              <span class="absolute top-3 left-3 rounded-full bg-[#064273]/90 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-xs">
+                {s.tag}
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="font-serif text-xl font-semibold text-[#0B2239]">{s.name}</h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-[#4A6278]">{s.desc}</p>
+              <a
+                href={mapsLink(s.mapsQuery)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-auto inline-flex items-center gap-1.5 pt-5 text-xs font-bold text-[#0B6FA4] hover:text-[#199bd1]"
+              >
+                <span>📍 {mapsLabel} →</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- 6. CALENDARIO DE FIESTAS Y EVENTOS DEL AÑO -->
+      <div id="fiestas" class="scroll-mt-24 mt-20 rounded-3xl border border-[#DCE8F2] bg-[#F3F8FC] p-6 sm:p-10" data-reveal>
+        <div class="max-w-2xl">
+          <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+            {isEs ? 'Marbella Viva los 12 Meses' : 'Marbella Alive All 12 Months'}
+          </p>
+          <h2 class="mt-2 font-serif text-3xl font-semibold text-[#0B2239]">
+            {isEs ? 'Fiestas y Tradiciones de Marbella' : 'Annual Festivals & Local Traditions'}
+          </h2>
+        </div>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {festivals.map((f) => (
+            <div class="rounded-2xl border border-[#DCE8F2] bg-white p-5 shadow-2xs">
+              <span class="rounded-full bg-[#E7F4FC] px-2.5 py-0.5 font-mono text-[11px] font-bold text-[#0B6FA4]">
+                {f.month}
+              </span>
+              <h3 class="mt-2.5 font-serif text-lg font-semibold text-[#0B2239]">{f.name}</h3>
+              <p class="mt-1.5 text-xs leading-relaxed text-[#4A6278]">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 7. CÓMO LLEGAR Y MEJOR ÉPOCA -->
+      <div id="como-llegar" class="scroll-mt-24 mt-10 grid gap-6 lg:grid-cols-2" data-reveal>
+        <div class="rounded-3xl border border-[#DCE8F2] bg-[#F8FBFD] p-6 sm:p-8">
+          <p class="text-xs font-bold tracking-[0.14em] text-[#199bd1] uppercase">
+            {isEs ? 'Conexiones Rápidas' : 'Easy Connections'}
+          </p>
+          <h2 class="mt-2 font-serif text-2xl font-semibold text-[#0B2239]">
+            {isEs ? 'Cómo llegar a Marbella y al Edificio Skol' : 'How to Reach Marbella & Edificio Skol'}
+          </h2>
+          <ul class="mt-4 space-y-3 text-sm text-[#4A6278]">
+            <li>
+              <strong class="text-[#0B2239]">✈️ {isEs ? 'Aeropuerto de Málaga (AGP):' : 'Málaga Airport (AGP):'}</strong>{' '}
+              {isEs
+                ? 'A solo 40 minutos por autopista AP-7 o A-7. Autobús directo Avanza cada hora hasta Marbella o traslado privado puerta a puerta.'
+                : 'Just 40 minutes via the AP-7 / A-7 coastal motorway, with hourly direct express buses or private door-to-door transfers.'}
+            </li>
+            <li>
+              <strong class="text-[#0B2239]">🚄 {isEs ? 'Tren AVE (Málaga María Zambrano):' : 'High-Speed AVE Train (Málaga):'}</strong>{' '}
+              {isEs
+                ? 'Conexión directa con Madrid (2h 40m), Córdoba y Sevilla, a 45 minutos en coche o autobús de Marbella.'
+                : 'Direct high-speed rail links to Madrid (2h 40m), Córdoba and Seville, 45 minutes from Marbella.'}
+            </li>
+            <li>
+              <strong class="text-[#0B2239]">🚶 {isEs ? 'Sin coche en el destino:' : 'Car-free stay:'}</strong>{' '}
+              {isEs
+                ? 'Alojándote en el Edificio Skol tienes playa, supermercados, taxis, puerto deportivo y Casco Antiguo a menos de 8 minutos a pie.'
+                : 'From Edificio Skol, beaches, supermarkets, taxis, the Marina and Old Town are all within an 8-minute walk.'}
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-3xl border border-[#DCE8F2] bg-[#F8FBFD] p-6 sm:p-8">
+          <p class="text-xs font-bold tracking-[0.14em] text-[#0D7A67] uppercase">
+            {isEs ? 'Microclima Único · Sierra Blanca' : 'Unique Microclimate · Sierra Blanca'}
+          </p>
+          <h2 class="mt-2 font-serif text-2xl font-semibold text-[#0B2239]">
+            {isEs ? '¿Cuál es la mejor época para visitar Marbella?' : 'When is the Best Time to Visit Marbella?'}
+          </h2>
+          <ul class="mt-4 space-y-3 text-sm text-[#4A6278]">
+            <li>
+              <strong class="text-[#0B2239]">☀️ {isEs ? 'Primavera y Otoño (Abr–Jun / Sep–Oct):' : 'Spring & Autumn (Apr–Jun / Sep–Oct):'}</strong>{' '}
+              {isEs
+                ? 'Temperaturas de 22–27 °C, playas tranquilas y condiciones perfectas para golf y paseos.'
+                : 'Warm 22–27 °C days, uncrowded beaches and ideal temperatures for golf and dining outdoors.'}
+            </li>
+            <li>
+              <strong class="text-[#0B2239]">🏖️ {isEs ? 'Verano (Jul–Ago):' : 'Summer (Jul–Aug):'}</strong>{' '}
+              {isEs
+                ? 'Ambiente vibrante, mar cálido, festivales como Starlite y noches mediterráneas junto al mar.'
+                : 'Vibrant atmosphere, warm sea swimming, Starlite concerts and lively seafront evenings.'}
+            </li>
+            <li>
+              <strong class="text-[#0B2239]">🌿 {isEs ? 'Invierno (Nov–Mar):' : 'Winter (Nov–Mar):'}</strong>{' '}
+              {isEs
+                ? 'Inviernos suaves de 17–20 °C protegidos por la montaña de La Concha — el destino favorito en Europa para escapadas de sol y teletrabajo.'
+                : 'Mild 17–20 °C sunny days sheltered by La Concha mountain — Europe’s favourite winter sun and remote-work escape.'}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CTA Final a Apartamentos -->
+      <div
+        data-reveal
+        class="mt-14 flex flex-col items-center justify-between gap-6 rounded-3xl bg-gradient-to-r from-[#064273] via-[#0B6FA4] to-[#199bd1] p-8 text-center text-white shadow-lg sm:flex-row sm:text-left sm:p-10"
+      >
+        <div class="max-w-xl">
+          <h2 class="font-serif text-2xl font-semibold sm:text-3xl">
+            {isEs
+              ? '¿Listo para pasar tus vacaciones en Marbella frente al mar?'
+              : 'Ready for your beachfront holiday in Marbella?'}
+          </h2>
+          <p class="mt-2 text-sm text-white/90">
+            {isEs
+              ? 'Alquila directamente nuestros apartamentos vacacionales en el Edificio Skol y el centro con disponibilidad en tiempo real.'
+              : 'Book your holiday apartment directly in Edificio Skol and central Marbella with real-time availability.'}
+          </p>
+        </div>
+        <a
+          href={propsHref}
+          class="btn-tactile shrink-0 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#064273] shadow-sm hover:bg-[#E7F4FC]"
+        >
+          {isEs ? 'Ver Apartamentos Disponibles →' : 'Browse Available Apartments →'}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

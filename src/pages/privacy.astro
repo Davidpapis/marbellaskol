@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import siteSettings from '../content/singletons/site-settings.json';
+---
+
+<BaseLayout lang="en" title="Privacy Policy | MarbellaSkol" description="Privacy policy and GDPR compliance for MarbellaSkol." canonicalPath="/privacy" noindex={true}>
+  <section class="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-semibold text-ink">Privacy Policy</h1>
+    <div class="mt-6 space-y-4 text-sm leading-relaxed text-ink-muted">
+      <p>Personal data submitted through enquiries or direct bookings via OwnerRez is processed strictly to manage your holiday accommodation inquiry, reservation and legal guest registration obligations in Spain.</p>
+      <p>You may exercise your GDPR rights of access, rectification or deletion at any time by writing to <a href={`mailto:${siteSettings.email}`} class="text-sea underline">{siteSettings.email}</a>.</p>
+    </div>
+  </section>
+</BaseLayout>

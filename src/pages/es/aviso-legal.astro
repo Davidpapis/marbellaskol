@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import siteSettings from '../../content/singletons/site-settings.json';
+---
+
+<BaseLayout lang="es" title="Aviso Legal | MarbellaSkol" description="Aviso legal e información identificativa de MarbellaSkol." canonicalPath="/es/aviso-legal" noindex={true}>
+  <section class="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-semibold text-ink">Aviso Legal</h1>
+    <div class="mt-6 space-y-4 text-sm leading-relaxed text-ink-muted">
+      <p><strong>Titular:</strong> {siteSettings.legalCompanyName}</p>
+      <p><strong>NIF/CIF:</strong> {siteSettings.legalTaxId}</p>
+      <p><strong>Domicilio:</strong> {siteSettings.address}</p>
+      <p><strong>Email:</strong> {siteSettings.email}</p>
+      <p>Todas las viviendas de uso turístico publicadas en {siteSettings.domain} disponen de su correspondiente número de registro turístico de la Junta de Andalucía (VFT/VUT) visible en cada ficha.</p>
+    </div>
+  </section>
+</BaseLayout>

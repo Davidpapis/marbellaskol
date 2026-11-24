@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PropertyGallery from './islands/PropertyGallery';
+import OwnerRezWidgets from './OwnerRezWidgets.astro';
+import HouseRules from './HouseRules.astro';
+import siteSettings from '../content/singletons/site-settings.json';
+import { getCategoryLabel, type PropertyEntry } from '../lib/properties';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  property: PropertyEntry;
+  lang: Lang;
+}
+
+const { property, lang } = Astro.props;
+const d = property.data;
+const localized = lang === 'es' ? d.contentEs : d.contentEn;
+const listHref = lang === 'es' ? '/es/propiedades' : '/properties';
+const canonicalPath =
+  lang === 'es' ? `/es/propiedades/${d.slug}` : `/properties/${d.slug}`;
+
+const seoTitle = `${d.unitCode} | ${localized.title}`.slice(0, 60);
+const seoDesc = (
+  localized.summary ||
+  (lang === 'es'
+    ? `Alquiler vacacional directo ${d.unitCode} en ${d.building}, ${d.zone}. ${d.bedrooms} dormitorios, hasta ${d.maxGuests} huéspedes.`
+    : `Direct holiday rental ${d.unitCode} in ${d.building}, ${d.zone}. ${d.bedrooms} bedrooms, up to ${d.maxGuests} guests.`)
+).slice(0, 160);
+
+const images = d.gallery.length > 0 ? d.gallery : d.coverImage ? [d.coverImage] : ['/images/hero-skol.jpg'];
+const paragraphs = localized.description
+  .split(/\n+/)
+  .map((p) => p.trim())
+  .filter(Boolean);
+
+const hasAnyWidget = Boolean(
+  d.ownerrez.bookingWidgetIdEn ||
+    d.ownerrez.bookingWidgetIdEs ||
+    d.ownerrez.calendarWidgetIdEn ||
+    d.ownerrez.calendarWidgetIdEs ||
+    d.ownerrez.reviewWidgetId
+);
+
+const schemas = [
+  {
+    '@type': 'VacationRental',
+    name: localized.title,
+    identifier: d.vftLicense || d.internalRef || d.unitCode,
+    description: seoDesc,
+    image: images.slice(0, 5),
+    containsPlace: {
+      '@type': 'Accommodation',
+      occupancy: { '@type': 'QuantitativeValue', value: d.maxGuests },
+      numberOfBedrooms: d.bedrooms,
+      numberOfBathroomsTotal: d.bathrooms,
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: d.location.address,
+      addressLocality: 'Marbella',
+      addressRegion: 'Málaga',
+      addressCountry: 'ES',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: d.location.latitude,
+      longitude: d.location.longitude,
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: siteSettings.brandName,
+        item: `${siteSettings.domain}${lang === 'es' ? '/es' : '/'}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: lang === 'es' ? 'Apartamentos' : 'Apartments',
+        item: `${siteSettings.domain}${listHref}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: d.unitCode,
+        item: `${siteSettings.domain}${canonicalPath}`,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={seoTitle}
+  description={seoDesc}
+  canonicalPath={canonicalPath}
+  ogImage={images[0]}
+  schemas={schemas}
+>
+  <article class="bg-[#F8FBFD]">
+    <!-- Franja blanca superior con Breadcrumb + Mosaico 5 fotos a ancho completo -->
+    <div class="border-b border-[#DCE8F2] bg-white">
+      <div class="mx-auto max-w-7xl px-4 pt-6 pb-8 sm:px-6 lg:px-8">
+        <nav aria-label="Breadcrumb" class="mb-4 flex flex-wrap items-center gap-2 text-xs font-medium text-[#4A6278]">
+          <a href={lang === 'es' ? '/es' : '/'} class="hover:text-[#0B6FA4]">
+            {lang === 'es' ? 'Inicio' : 'Home'}
+          </a>
+          <span aria-hidden="true">/</span>
+          <a href={listHref} class="hover:text-[#0B6FA4]">
+            {lang === 'es' ? 'Apartamentos' : 'Apartments'}
+          </a>
+          <span aria-hidden="true">/</span>
+          <span class="font-semibold text-[#0B2239]">{d.unitCode}</span>
+        </nav>
+
+        <PropertyGallery images={images} title={localized.title} lang={lang} client:load />
+
+        <!-- Badges + Titular H1 + Dirección -->
+        <div class="mt-6 flex flex-wrap items-center gap-2">
+          <span class="rounded-md bg-[#199bd1] px-2.5 py-1 text-xs font-semibold text-white">
+            {lang === 'es' ? 'Alquiler Vacacional' : 'Holiday Rentals'}
+          </span>
+          <span class="rounded-md bg-[#0D7A67] px-2.5 py-1 text-xs font-semibold text-white">
+            {getCategoryLabel(d.category, lang)}
+          </span>
+          <span class="rounded-md bg-[#E7F4FC] px-2.5 py-1 font-mono text-xs font-semibold text-[#0B6FA4]">
+            {d.unitCode}
+          </span>
+          {d.vftLicense && (
+            <span class="rounded-md border border-[#DCE8F2] bg-[#F3F8FC] px-2.5 py-1 font-mono text-xs text-[#4A6278]">
+              {d.vftLicense}
+            </span>
+          )}
+        </div>
+
+        <h1 class="mt-3 max-w-4xl text-3xl leading-tight font-semibold text-[#0B2239] sm:text-4xl">
+          {localized.title}
+        </h1>
+        <p class="mt-2 text-sm text-[#4A6278]">
+          📍 {d.location.address} · {d.building}, {d.zone}
+        </p>
+
+        <!-- Barra de resumen de especificaciones con iconos -->
+        <div class="mt-6 grid grid-cols-2 gap-3 rounded-xl border border-[#DCE8F2] bg-[#F3F8FC] p-4 sm:grid-cols-4">
+          <div class="flex flex-col">
+            <span class="text-[11px] font-semibold tracking-wider text-[#4A6278] uppercase">
+              {lang === 'es' ? 'Dormitorios' : 'Bedrooms'}
+            </span>
+            <span class="mt-1 font-mono text-base font-semibold text-[#0B2239] tabular-nums">
+              {d.bedrooms === 0 ? (lang === 'es' ? 'Estudio' : 'Studio') : d.bedrooms}
+            </span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[11px] font-semibold tracking-wider text-[#4A6278] uppercase">
+              {lang === 'es' ? 'Baños' : 'Bathrooms'}
+            </span>
+            <span class="mt-1 font-mono text-base font-semibold text-[#0B2239] tabular-nums">
+              {d.bathrooms}
+            </span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[11px] font-semibold tracking-wider text-[#4A6278] uppercase">
+              {lang === 'es' ? 'Capacidad Máx.' : 'Max Guests'}
+            </span>
+            <span class="mt-1 font-mono text-base font-semibold text-[#0B2239] tabular-nums">
+              {d.maxGuests} {lang === 'es' ? 'personas' : 'guests'}
+            </span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[11px] font-semibold tracking-wider text-[#4A6278] uppercase">
+              {lang === 'es' ? 'Referencia / VFT' : 'Ref / Licence'}
+            </span>
+            <span class="mt-1 truncate font-mono text-sm font-semibold text-[#0B6FA4]">
+              {d.vftLicense || d.internalRef || d.unitCode}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido principal + Sticky OwnerRez Booking Widget -->
+    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(360px,0.9fr)] lg:items-start">
+        <div class="space-y-8">
+          <!-- Descripción completa -->
+          <section class="rounded-2xl border border-[#DCE8F2] bg-white p-6 shadow-xs sm:p-8">
+            <h2 class="font-serif text-2xl font-semibold text-[#0B2239]">
+              {lang === 'es' ? 'Descripción del Apartamento' : 'Description'}
+            </h2>
+            <div class="mt-4 space-y-3 text-sm leading-relaxed text-[#334E68] sm:text-base">
+              {paragraphs.length > 0 ? (
+                paragraphs.map((p) => <p>{p}</p>)
+              ) : (
+                <p>{localized.summary}</p>
+              )}
+            </div>
+          </section>
+
+          <!-- Calendario oficial OwnerRez con precios por noche -->
+          <OwnerRezWidgets
+            lang={lang}
+            unitCode={d.unitCode}
+            ownerrezPropertyId={d.ownerrez.propertyId}
+            propertyUuid={d.ownerrez.propertyUuid}
+            calendarWidgetIdEn={d.ownerrez.calendarWidgetIdEn}
+            calendarWidgetIdEs={d.ownerrez.calendarWidgetIdEs}
+            bookingWidgetIdEn={d.ownerrez.bookingWidgetIdEn}
+            bookingWidgetIdEs={d.ownerrez.bookingWidgetIdEs}
+            mode="calendar"
+          />
+
+          <!-- Equipamiento y Servicios -->
+          {localized.amenities.length > 0 && (
+            <section class="rounded-2xl border border-[#DCE8F2] bg-white p-6 shadow-xs sm:p-8">
+              <h2 class="font-serif text-2xl font-semibold text-[#0B2239]">
+                {lang === 'es' ? 'Equipamiento y Servicios' : 'Features & Amenities'}
+              </h2>
+              <ul class="mt-5 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                {localized.amenities.map((item) => (
+                  <li class="flex items-center gap-2 text-sm text-[#334E68]">
+                    <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#E7F4FC] text-xs font-bold text-[#0B6FA4]" aria-hidden="true">
+                      ✓
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <!-- Normas de la Casa + Fianza 300 € -->
+          <HouseRules lang={lang} />
+
+          <!-- Opiniones Verificadas (si la propiedad dispone de widget de reseñas) -->
+          <OwnerRezWidgets
+            lang={lang}
+            unitCode={d.unitCode}
+            ownerrezPropertyId={d.ownerrez.propertyId}
+            propertyUuid={d.ownerrez.propertyUuid}
+            reviewWidgetId={d.ownerrez.reviewWidgetId}
+            mode="reviews"
+          />
+        </div>
+
+        <!-- Columna derecha sticky: Widget Oficial Book/Inquire -->
+        <aside class="lg:sticky lg:top-24">
+          <OwnerRezWidgets
+            lang={lang}
+            unitCode={d.unitCode}
+            ownerrezPropertyId={d.ownerrez.propertyId}
+            propertyUuid={d.ownerrez.propertyUuid}
+            calendarWidgetIdEn={d.ownerrez.calendarWidgetIdEn}
+            calendarWidgetIdEs={d.ownerrez.calendarWidgetIdEs}
+            bookingWidgetIdEn={d.ownerrez.bookingWidgetIdEn}
+            bookingWidgetIdEs={d.ownerrez.bookingWidgetIdEs}
+            mode="booking"
+          />
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  <!-- Carga ÚNICA del script oficial v2 (app.ownerrez.com/widget.js) tras existir los contenedores -->
+  {hasAnyWidget && (
+    <script is:inline src="https://app.ownerrez.com/widget.js"></script>
+  )}
+</BaseLayout>

@@ -1,0 +1,879 @@
+{
+  "redirects": [
+    {
+      "source": "/properties/mediterraneo-801-super-one-bedroom-apartment-with-great-sea-views",
+      "destination": "/properties/mediterraneo-801-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/estupendo-apartamento-con-fantasticas-vistas-al-mar",
+      "destination": "/es/propiedades/mediterraneo-801-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-216-modern-1-bedroom-apartment-in-skol-marbella",
+      "destination": "/properties/skol-216-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-216-moderno-duplex-del-un-dormitorio-en-alquiler-vacacional",
+      "destination": "/es/propiedades/skol-216-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/valdecantos-6b-marbella-front-line-harbour-1-bedroom-apartment",
+      "destination": "/properties/ev-0006b-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-919a-newly-renovated-apartment-with-a-spectacular-view",
+      "destination": "/properties/skol-919a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-919a-apartamento-recien-reformado-con-vistas-espectaculares",
+      "destination": "/es/propiedades/skol-919a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/diana-108-comfortable-apartment-over-marbella-promenade-facing-the-mediterranean-sea",
+      "destination": "/properties/di-00108-mc-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-925a-newly-renovated-apartment-with-wonderful-sea-view",
+      "destination": "/properties/skol-925a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-925a-apartamento-recien-reformado-con-maravillosas-vistas-al-mar",
+      "destination": "/es/propiedades/skol-925a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-323-delightful-apartment-with-double-terrace-sea-and-park-view",
+      "destination": "/properties/skol-323-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-323-precioso-apartamento-con-doble-terraza-vistas-al-mar-y-al-parque",
+      "destination": "/es/propiedades/skol-323-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-129-bright-renovated-beachfront-studio-with-seaside-views",
+      "destination": "/properties/skol-129-studio",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-617a-2-bedroom-duplex-on-the-beachfront-with-amazing-sea-view-marbella",
+      "destination": "/properties/skol-617a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-617-duplex-de-dos-dormitorios-en-primera-linea-de-playa-marbella-2",
+      "destination": "/es/propiedades/skol-617a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-2a-incredible-apartment-for-holiday-rentals-in-marbella",
+      "destination": "/properties/skol-2a-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/increible-apartamento-en-alquiler-de-vacaciones-en-marbella",
+      "destination": "/es/propiedades/skol-2a-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-510a-two-bedrooms-duplex-in-marbella-centre-on-the-beachfront",
+      "destination": "/properties/skol-510a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/mediterraneo-702-super-studio-with-amazing-sea-views",
+      "destination": "/properties/mediterraneo-702-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/mediterraneo-702-super-estudio-con-increibles-vistas-al-mar",
+      "destination": "/es/propiedades/mediterraneo-702-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-304a-great-2-b-duplex-apartment-with-wi-fi-sea-and-pool-views-in-skol-marbella",
+      "destination": "/properties/skol-304a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-304a-gran-duplex-2-dormitorios-con-wi-fi-con-vista-al-mar-y-a-la-piscina-en-skol-marbella",
+      "destination": "/es/propiedades/skol-304a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-520c-cozy-apartment-with-sea-and-pool-view",
+      "destination": "/properties/skol-520c-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-520c-acogedor-apartamento-con-vistas-al-mar-y-a-la-piscina",
+      "destination": "/es/propiedades/skol-520c-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/parque-marbella-1-6c-magnificent-4-bedroom-apartment-south-facing",
+      "destination": "/properties/pm-0016c-mc-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-504-lovely-2-bedroom-duplex-holiday-home-in-skol-marbella",
+      "destination": "/properties/skol-504-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-945b-first-line-beach-south-facing-2-bedrooms",
+      "destination": "/properties/skol-945b-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/mediterraneo-408-great-studio-with-sea-views-in-marbella-centre-2",
+      "destination": "/properties/mediterraneo-408-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/estupendo-estudio-con-vistas-al-mar-en-marbella-centro",
+      "destination": "/es/propiedades/mediterraneo-408-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/mediterraneo-508-fantastic-studio-on-the-beachfront-with-sea-views",
+      "destination": "/properties/mediterraneo-508-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/fantastico-estudio-en-primera-linea-de-playa-con-vistas-al-mar",
+      "destination": "/es/propiedades/mediterraneo-508-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-536-great-one-bed-apartment-with-wonderful-sea-view",
+      "destination": "/properties/skol-536-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-536-estupendo-apartamento-de-un-dormitorio-con-maravillosas-vistas-al-mar",
+      "destination": "/es/propiedades/skol-536-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/pm-1-7a-spacious-two-bedroom-apartment-in-marbella-centre",
+      "destination": "/properties/pm-1-7a-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/pm-1-7a-amplio-apartamento-de-dos-dormitorios-en-el-centro-de-marbella",
+      "destination": "/es/propiedades/pm-1-7a-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-412-renovated-two-bedrooms-duplex-with-sea-view",
+      "destination": "/properties/skol-412-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-412-duplex-reformado-de-dos-dormitorios-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-412-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/diana-905-super-one-bedroom-apartment-on-the-beachfront-with-amazing-sea-view",
+      "destination": "/properties/di-00905-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/diana-905-magnifico-apartamento-de-un-dormitorio-orientado-al-sur-con-impresionantes-vistas-al-mar",
+      "destination": "/es/propiedades/di-00905-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-705-two-bedrooms-duplex-apartment-with-amazing-sea-view",
+      "destination": "/properties/skol-705-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-705-two-bedrooms-duplex-apartment-with-amazing-sea-views",
+      "destination": "/es/propiedades/skol-705-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-935-cozy-2-bedroom-apartment-with-amazing-sea-views",
+      "destination": "/properties/skol-935-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-935-acogedor-apartamento-de-2-dormitorios-con-impresionantes-vistas-al-mar",
+      "destination": "/es/propiedades/skol-935-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-212-two-bedrooms-duplex-in-marbella-centre-on-the-beachfront",
+      "destination": "/properties/skol-212-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-212-duplex-de-dos-dormitorios-en-marbella-centro-en-primera-linea-de-playa",
+      "destination": "/es/propiedades/skol-212-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-537-two-bedrooms-apartment-in-marbella-centre-with-sea-view",
+      "destination": "/properties/skol-537-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/apartamento-de-dos-dormitorios-con-vistas-al-mar-en-marbella-centro",
+      "destination": "/es/propiedades/skol-537-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/diana-206-completely-renovated-apartment-on-the-beachfront",
+      "destination": "/properties/di-00206-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/diana-206-apartamento-totalmente-reformado-en-primera-linea-de-playa",
+      "destination": "/es/propiedades/di-00206-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-131-studio-in-skol-building-in-marbella-centre-with-sea-views",
+      "destination": "/properties/skol-131-studio",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-131-estudio-en-edificio-skol-en-marbella-centro-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-131-studio",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-316-attractive-1-bedroom-duplex-apartment-with-sea-view-in-skol-marbella",
+      "destination": "/properties/skol-316-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-329-spacious-studio-on-the-beachfront-with-sea-views",
+      "destination": "/properties/skol-329-studio",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-329-amplio-estudio-en-primera-linea-de-playa-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-329-studio",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-128-great-1-bedroom-apartment-with-sea-views",
+      "destination": "/properties/skol-128-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-128-estupendo-apartamento-de-un-dormitorio-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-128-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/central-two-bedroom-apartment-on-the-second-line-of-the-beach-in-marbella",
+      "destination": "/properties/pm-000ba-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/nice-1-bed-apartment-with-sea-views-in-marbella-centre-for-holiday-rentals",
+      "destination": "/properties/skol-440-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-440-bonito-apartamento-de-un-dormitorio-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-440-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/neptuno-403-wonderful-one-bedrooms-apartment-with-sea-views",
+      "destination": "/properties/ne-00403-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-609-duplex-1-bedroom-in-skol-marbella-with-amazing-sea-views",
+      "destination": "/properties/skol-609-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-609-duplex-en-skol-marbella-con-increibles-vistas-al-mar",
+      "destination": "/es/propiedades/skol-609-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/wonderful-studio-in-marbella-centre-on-the-second-line-beach",
+      "destination": "/properties/pm-0031b-mc-studio-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/maravilloso-estudio-en-el-centro-de-marbella-en-segunda-linea-de-playa",
+      "destination": "/es/propiedades/pm-0031b-mc-studio-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-709-duplex-1-bedroom-in-skol-marbella-with-gibraltar-and-sea-views",
+      "destination": "/properties/skol-709-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-709-duplex-de-1-dormitorio-en-skol-marbella-con-vistas-al-mar-y-a-gibraltar",
+      "destination": "/es/propiedades/skol-709-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-521-fantastic-studio-on-the-beachfront-for-holiday-rental",
+      "destination": "/properties/skol-521-studio",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-521-fantastico-estudio-en-primera-linea-de-playa",
+      "destination": "/es/propiedades/skol-521-studio",
+      "permanent": true
+    },
+    {
+      "source": "/properties/luxurious-two-bedroom-apartment-in-mar-azul-estepona",
+      "destination": "/properties/mar-azul-apartment-estepona",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/lujoso-apartamento-en-mar-azul-estepona",
+      "destination": "/es/propiedades/mar-azul-apartment-estepona",
+      "permanent": true
+    },
+    {
+      "source": "/properties/modern-two-bedroom-apartment-in-marbella-centre",
+      "destination": "/properties/mp-00216-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/exclusive-three-bedroom-apartment-with-sea-views",
+      "destination": "/properties/skol-645-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-803-apartment-with-amazing-views-in-marbella-center",
+      "destination": "/properties/skol-803-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-803-apartamento-con-impresionantes-vistas-en-marbella-centro",
+      "destination": "/es/propiedades/skol-803-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-639-great-apartment-for-holiday-rental-in-marbella",
+      "destination": "/properties/skol-639-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-639-estupendo-apartamento-en-alquiler-vacacional-en-marbella",
+      "destination": "/es/propiedades/skol-639-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-706-lovely-2-bedroom-apartment-for-holiday-rental-in-marbella",
+      "destination": "/properties/skol-706-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-706-precioso-apartamento-duplex-de-2-dormitorios-en-marbella-centro",
+      "destination": "/es/propiedades/skol-706-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-715-spectacular-duplex-in-marbella-on-the-beachfront",
+      "destination": "/properties/skol-715-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/espectacular-duplex-en-primera-linea-de-playa-marbella",
+      "destination": "/es/propiedades/skol-715-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-933-fantastic-apartment-for-holiday-rentals-in-marbella",
+      "destination": "/properties/skol-933-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/fantastico-apartamento-para-alquiler-de-vacaciones-en-marbella",
+      "destination": "/es/propiedades/skol-933-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/fantastic-2-bedroom-apartment-for-rent-in-skol-marbella",
+      "destination": "/properties/skol-708-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-708-fantastico-apartamento-de-2-dormitorios-en-alquiler-vacacional",
+      "destination": "/es/propiedades/skol-708-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-701-stunning-one-bedroom-duplex-with-sea-views-for-holiday-rentals",
+      "destination": "/properties/skol-701-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-701-estupendo-duplex-de-un-dormitorio-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-701-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-629-modern-duplex-2-bedroom-apartment-with-sea-views-in-skol-marbella",
+      "destination": "/properties/skol-629-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-629-duplex-de-dos-dormitorios-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-629-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-526",
+      "destination": "/properties/skol-526-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-526-apartamento-de-1-dormitorio-frente-a-la-playa-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-526-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-508-skol-marbella-west-facing-duplex-apartment-pool-sea-views",
+      "destination": "/properties/skol-508-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-508-apartamento-duplex-con-orientacion-oeste-piscina-vistas-al-mar",
+      "destination": "/es/propiedades/skol-508-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-439-spacious-apartment-with-sea-views-in-skol-marbella",
+      "destination": "/properties/skol-439-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-439-amplio-apartamento-con-vistas-al-mar-en-marbella-centro",
+      "destination": "/es/propiedades/skol-439-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-427-spacious-1-bedroom-apartment-with-sea-views-in-marbella",
+      "destination": "/properties/skol-427-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-427-amplio-apartamento-de-1-dormitorio-con-vistas-al-mar-en-marbella",
+      "destination": "/es/propiedades/skol-427-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-444-fantastic-renovated-1-bed-apartment-in-marbella-beachfront",
+      "destination": "/properties/skol-444-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-444-fantastico-apartamento-renovado-en-marbella-centro",
+      "destination": "/es/propiedades/skol-444-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-339-great-two-bedrooms-apartment-in-marbella-center",
+      "destination": "/properties/skol-339-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-339-gran-apartamento-de-dos-dormitorios-en-marbella-centro",
+      "destination": "/es/propiedades/skol-339-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-322-2-bedrooms-2-bath-beach-front-apartment-marbella",
+      "destination": "/properties/skol-322-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-322-apartamento-de-2-dormitorios-y-2-banos-en-primera-linea-de-playa-en-marbella",
+      "destination": "/es/propiedades/skol-322-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-350-modern-beachfront-apartment-in-marbella-center",
+      "destination": "/properties/skol-350-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-350-moderno-apartamento-en-el-marbella-centro",
+      "destination": "/es/propiedades/skol-350-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-302-super-1-bedroom-duplex-apartment-in-marbella-center",
+      "destination": "/properties/skol-302-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-302-super-duplex-de-1-dormitorio-en-marbella-centro",
+      "destination": "/es/propiedades/skol-302-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-203-one-bedroom-apartment-in-edificio-for-holiday-rentals",
+      "destination": "/properties/skol-203-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-203-apartamento-de-un-dormitorio-en-alquiler-vacacional",
+      "destination": "/es/propiedades/skol-203-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-242-one-bedroom-apartment-marbella",
+      "destination": "/properties/skol-242-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-242-excelente-apartamento-de-un-dormitorio-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-242-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/eden-roc-ii-amazing-sea-views-over-marbella-port",
+      "destination": "/properties/er-00001-pm-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/magnifico-apartamento-en-primera-linea-de-playa",
+      "destination": "/es/propiedades/er-00001-pm-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/great-studio-on-the-beachfront-in-the-center-of-marbella",
+      "destination": "/properties/ne-00902-mc-studio-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/moderno-estudio-en-primera-linea-de-playa-en-marbella",
+      "destination": "/es/propiedades/ne-00902-mc-studio-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-231-a-studio-skolbuilding-marbella-centre-sea-views",
+      "destination": "/properties/skol-231-a-studio",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-231-a-estudio-en-el-edificio-skol-en-el-centro-de-marbella-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-231-a-studio",
+      "permanent": true
+    },
+    {
+      "source": "/properties/palm-beach-2-f",
+      "destination": "/properties/palm-beach-2f-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/palm-beach-2f-impresionante-apartamento-frente-al-mar-y-al-paseo-maritimo-en-marbella",
+      "destination": "/es/propiedades/palm-beach-2f-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/modern-renovated-one-bed-apartment-in-edificio-apolo-marbella-center",
+      "destination": "/properties/ap-00401-mc-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/moderno-y-renovado-apartamento-en-el-edificio-apolo-marbella-centro",
+      "destination": "/es/propiedades/ap-00401-mc-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/parque-marbella-11-beautiful-apartment-facing-the-park-with-sea-view",
+      "destination": "/properties/parque-marbella-1-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/parque-marbella-11-precioso-apartamento-frente-al-parque-con-vista-al-mar",
+      "destination": "/es/propiedades/parque-marbella-1-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/magnificent-one-bedroom-apartment-in-marbella-center",
+      "destination": "/properties/pm-00001-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/magnifico-apartamento-de-un-dormitorio-en-marbella-centro",
+      "destination": "/es/propiedades/pm-00001-mc-apartment-marbella-center",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-252c-lovely-1-bedroom-apartment-with-wi-fi-seaside-views-in-skol-marbella",
+      "destination": "/properties/skol-252c-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-252c-precioso-apartamento-con-wi-fi-vistas-panoramicas-al-mar-en-marbella-centro",
+      "destination": "/es/propiedades/skol-252c-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-438-lovely-1-bed-apartment-with-wi-fi-sea-views-in-skol-marbella",
+      "destination": "/properties/skol-438-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-438-precioso-apartamento-con-wi-fi-vistas-al-mar-en-marbella-centro",
+      "destination": "/es/propiedades/skol-438-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-408a-marbella-west-facing-duplex-apartment-pool-sea-views",
+      "destination": "/properties/skol-408a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-408-apartamento-duplex-con-vista-al-oeste-en-marbella-vistas-a-la-picina-y-al-mar",
+      "destination": "/es/propiedades/skol-408a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/cibeles-904-moderm-studio-with-sea-views-in-marbella-centre",
+      "destination": "/properties/cibeles-904-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/cibeles-904-modero-estudio-con-vistas-al-mar-en-marbella-centro",
+      "destination": "/es/propiedades/cibeles-904-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-326-apartment-with-sea-view-pool-beach",
+      "destination": "/properties/skol-326-c-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-326-c-apartamento-con-vistas-al-mal-piscina-playa",
+      "destination": "/es/propiedades/skol-326-c-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-335-fantastic-beachfront-apartment-facing-south",
+      "destination": "/properties/skol-335-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-335-fantastico-apartamento-primera-linea-de-playa",
+      "destination": "/es/propiedades/skol-335-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-206-2-bedroom-duplex-apartment-for-holiday-rentals",
+      "destination": "/properties/skol-206-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/sk-206-2-bedroom-duplex-apartment-for-holiday-rentals",
+      "destination": "/es/propiedades/skol-206-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/spacious-three-bedrooms-apartment-for-holiday-rentals-in-marbella-center",
+      "destination": "/properties/pm-0028b-mc-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/amplio-apartamento-en-alquiler-para-vacaciones-en-marbella-centro",
+      "destination": "/es/propiedades/pm-0028b-mc-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/properties/great-2-bedroom-duplex-on-the-beachfront",
+      "destination": "/properties/skol-514-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/moderno-apartamento-en-primera-linea-de-playa",
+      "destination": "/es/propiedades/skol-514-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-1a-amazing-2-bedroom-apartment-skol-marbella",
+      "destination": "/properties/skol-1a-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-1a-espacioso-apartamento-primera-linea-de-playa-2-dormitorios",
+      "destination": "/es/propiedades/skol-1a-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-727-lovely-2-bedroom-duplex-apartment-for-rent-in-marbella-center",
+      "destination": "/properties/skol-727-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-727-precioso-apartamento-duplex-de-2-dormitorios-en-alquiler-en-marbella-centro",
+      "destination": "/es/propiedades/skol-727-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-225-beachfront-marbella-terrace-pool",
+      "destination": "/properties/skol-225-studio",
+      "permanent": true
+    },
+    {
+      "source": "/properties/casa-gina-old-town-marbella-center",
+      "destination": "/properties/casa-gina-townhouse-marbella-old-town",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/casa-gina-casco-antiguo-marbella-centro",
+      "destination": "/es/propiedades/casa-gina-townhouse-marbella-old-town",
+      "permanent": true
+    },
+    {
+      "source": "/properties/cozy-studio-for-holiday-rental-with-sea-views",
+      "destination": "/properties/skol-219-studio",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/coqueto-estudio-en-alquiler-vacacional-ideal-para-dos-personas",
+      "destination": "/es/propiedades/skol-219-studio",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-130-one-bedroom-apartment-in-marbella-center-with-sea-views",
+      "destination": "/properties/skol-130-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-130-apartamento-de-un-dormitorio-en-marbella-centro-con-visas-al-mar",
+      "destination": "/es/propiedades/skol-130-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-205-a-studio-skol-building-west-sea-views",
+      "destination": "/properties/skol-205-a-studio",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-205a-estudio-edificio-skol-primera-linea-de-playa",
+      "destination": "/es/propiedades/skol-205-a-studio",
+      "permanent": true
+    },
+    {
+      "source": "/properties/skol-208a-first-line-beach-west-facing-duplex-apartment",
+      "destination": "/properties/skol-208a-duplex",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/moderno-y-amplio-apartamento-de-un-dormitorio-en-el-paseo-maritimo-de-marbella",
+      "destination": "/es/propiedades/m2-00807-mc-apartment-marbella-centro",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/moderno-apartamento-en-marbella-centro",
+      "destination": "/es/propiedades/moderno-apartamento-en-apartment-marbella-centro",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-316-estupendo-apartamento-duplex-de-1-dormitorio-con-vistas-al-mar-en-skol-marbella",
+      "destination": "/es/propiedades/skol-316-duplex-88",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/exclusivo-apartamento-de-tres-dormitorios-en-alquiler-vacacional-con-vistas-al-mar",
+      "destination": "/es/propiedades/skol-645-apartment-89",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/centrico-apartamento-de-dos-dormitorios-en-segunda-linea-de-playa-en-marbella",
+      "destination": "/es/propiedades/centrico-apartamento-de-apartment-marbella-centro",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/neptuno-403-maravilloso-apartamento-de-un-dormitorio-con-vistas-al-mar",
+      "destination": "/es/propiedades/neptuno-403-maravilloso-apartment-marbella-centro-marbella-centro",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-232c-primerisima-linea-de-playa-1-dormitorio-marbella-centro",
+      "destination": "/es/propiedades/skol-232c-apartment",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/mediterraneo-1007-fabuloso-apartamento-de-un-dormitorio-frontal-al-mar",
+      "destination": "/es/propiedades/mediterraneo-1007-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-129-nuevo-estudio-marbella-centro",
+      "destination": "/es/propiedades/skol-129-studio-94",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/mediterraneo-6-9-encantador-estudio-frente-a-la-playa-con-impresionantes-vistas-al-mar",
+      "destination": "/es/propiedades/mediterraneo-6-9-studio-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/diana-108-comodo-apartamento-sobre-el-paseo-maritimo-de-marbella-frente-al-mar-mediterraneo",
+      "destination": "/es/propiedades/diana-108-comodo-apartment-marbella-centre",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-2a-increible-piso-en-alquiler-para-vacacionar-en-marbella",
+      "destination": "/es/propiedades/skol-2a-apartment-97",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/valdecantos-6b-puerto-deportivo-marbella-1-dormitorio-reformado",
+      "destination": "/es/propiedades/valdecantos-6b-puerto-apartment-marbella-centro",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-945b-vistas-espectaculares-al-mar-marbella-primera-linea-de-playa",
+      "destination": "/es/propiedades/skol-945b-apartment-99",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-510a-duplex-2-dormitorios-primera-linea-de-playa",
+      "destination": "/es/propiedades/skol-510a-duplex-100",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-208a-primera-linea-de-playa-duplex",
+      "destination": "/es/propiedades/skol-208a-duplex-101",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/parque-marbella-1-6c-marbella-centro-moderno-4-dormitorios",
+      "destination": "/es/propiedades/parque-marbella-1-apartment-marbella-centre-102",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-504-fantastico-apartamento-duplex-primera-linea-de-playa",
+      "destination": "/es/propiedades/skol-504-duplex-103",
+      "permanent": true
+    },
+    {
+      "source": "/es/properties/skol-225-frente-al-mar-en-marbella-terraza-y-piscina",
+      "destination": "/es/propiedades/skol-225-studio-104",
+      "permanent": true
+    }
+  ]
+}

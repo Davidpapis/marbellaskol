@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Lang;
+  canonicalPath?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  schemas?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  lang = 'en',
+  canonicalPath = Astro.url.pathname,
+  ogImage,
+  ogType,
+  noindex = false,
+  schemas = [],
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <SEO
+      title={title}
+      description={description}
+      lang={lang}
+      canonicalPath={canonicalPath}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+      schemas={schemas}
+    />
+  </head>
+  <body class="flex min-h-screen flex-col bg-white text-ink">
+    <a href="#main-content" class="skip-link">
+      {lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'}
+    </a>
+
+    <Navbar lang={lang} currentPath={canonicalPath} />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+
+    <!-- Coreografía ligera de scroll-reveal GPU-only (Emil Kowalski + Apple HIG) -->
+    <script is:inline>
+      (function () {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          return;
+        }
+        var els = document.querySelectorAll('[data-reveal]');
+        if (!els.length || !('IntersectionObserver' in window)) return;
+        els.forEach(function (el) {
+          el.classList.add('reveal-init');
+        });
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-in');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        );
+        els.forEach(function (el) {
+          io.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>

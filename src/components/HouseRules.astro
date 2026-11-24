@@ -1,0 +1,191 @@
+---
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const t =
+  lang === 'es'
+    ? {
+        eyebrow: 'Información de tu Estancia',
+        title: 'Normas de la Casa y Garantías',
+        checkInLabel: 'Hora de Entrada (Check-In)',
+        checkInTime: '16:00',
+        checkInNote: 'Recepción 24h en el Edificio Skol para llegadas tardías',
+        checkOutLabel: 'Hora de Salida (Check-Out)',
+        checkOutTime: '12:00',
+        checkOutNote: 'Salida cómoda con entrega sencilla de llaves',
+        cancelTitle: 'Política de Cancelación Transparente',
+        tier1Title: '+60 días antes',
+        tier1Val: '100% reembolso',
+        tier2Title: '30 a 60 días',
+        tier2Val: '50% reembolso',
+        tier3Title: 'Menos de 30 días',
+        tier3Val: 'Sin reembolso',
+        cancelFee: 'Todos los reembolsos conllevan un 5% de gastos de gestión bancaria y administrativa.',
+        childrenTitle: 'Familias y Niños',
+        childrenDesc: 'Niños bienvenidos. Cuna o cama supletoria no disponible.',
+        petsTitle: 'Mascotas',
+        petsDesc: 'No se admiten mascotas en el alojamiento.',
+        payTitle: 'Pago 100% Seguro (SSL)',
+        payDesc: 'Tarjeta de crédito/débito y PayPal con confirmación inmediata.',
+        partiesTitle: 'Fiestas y Eventos',
+        partiesDesc: 'No está permitido celebrar fiestas ni eventos.',
+        quietTitle: 'Horario de Descanso',
+        quietDesc: 'Reducir el ruido entre las 23:00 y las 08:00.',
+        smokeTitle: 'Espacio Sin Humo',
+        smokeDesc: 'Prohibido fumar en el interior del alojamiento.',
+        depositTitle: 'Fianza Reembolsable de Seguridad · 300 €',
+        depositText:
+          'Se realiza una preautorización reembolsable de 300 € en su tarjeta un día antes de la llegada y se libera en un máximo de 7 días tras la salida, una vez comprobado el buen estado del apartamento.',
+      }
+    : {
+        eyebrow: 'Stay Guidelines & Protection',
+        title: 'House Rules & Peace of Mind',
+        checkInLabel: 'Check-In Time',
+        checkInTime: '4:00 PM',
+        checkInNote: '24/7 reception desk at Edificio Skol for late arrivals',
+        checkOutLabel: 'Check-Out Time',
+        checkOutTime: '12:00 PM',
+        checkOutNote: 'Smooth key drop-off before midday',
+        cancelTitle: 'Transparent Cancellation Policy',
+        tier1Title: '60+ days before',
+        tier1Val: '100% refund',
+        tier2Title: '30–60 days before',
+        tier2Val: '50% refund',
+        tier3Title: 'Under 30 days',
+        tier3Val: 'Non-refundable',
+        cancelFee: 'All refunds incur a 5% card processing & handling fee.',
+        childrenTitle: 'Children & Families',
+        childrenDesc: 'Children welcome. Cot or extra bed not available.',
+        petsTitle: 'Pets Policy',
+        petsDesc: 'Pets are not allowed in the apartment.',
+        payTitle: '100% Secure Checkout (SSL)',
+        payDesc: 'Credit card and PayPal with instant confirmation.',
+        partiesTitle: 'Parties & Events',
+        partiesDesc: 'Parties or events cannot be held.',
+        quietTitle: 'Quiet Hours',
+        quietDesc: 'Please keep noise to a minimum from 11:00 PM to 8:00 AM.',
+        smokeTitle: 'No Smoking',
+        smokeDesc: 'Smoking is not allowed inside the property.',
+        depositTitle: 'Refundable Security Deposit · €300',
+        depositText:
+          'A refundable €300 security hold is pre-authorised on your card one day before arrival and released within 7 days after departure provided there is no damage to the property.',
+      };
+---
+
+<section class="overflow-hidden rounded-3xl border border-[#DCE8F2] bg-white p-6 shadow-xs sm:p-8" data-reveal>
+  <div class="flex flex-wrap items-end justify-between gap-3 border-b border-[#EBF3FA] pb-5">
+    <div>
+      <p class="text-[11px] font-bold tracking-[0.16em] text-[#199bd1] uppercase">{t.eyebrow}</p>
+      <h2 class="mt-1 font-serif text-2xl font-semibold text-[#0B2239] sm:text-3xl">{t.title}</h2>
+    </div>
+    <span class="inline-flex items-center gap-1.5 rounded-full bg-[#E6F6F2] px-3 py-1 text-xs font-semibold text-[#0D7A67]">
+      <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+      SSL 256-bit
+    </span>
+  </div>
+
+  <!-- Fila 1: Tarjetas visuales de Check-In y Check-Out -->
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    <div class="flex items-start gap-4 rounded-2xl border border-[#DCE8F2] bg-[#F5FAFE] p-4">
+      <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#199bd1] text-white shadow-xs">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-xs font-semibold text-[#4A6278]">{t.checkInLabel}</p>
+        <p class="mt-0.5 font-mono text-2xl font-bold text-[#0B2239] tabular-nums">{t.checkInTime}</p>
+        <p class="mt-1 text-xs text-[#4A6278]">{t.checkInNote}</p>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-4 rounded-2xl border border-[#DCE8F2] bg-[#F5FAFE] p-4">
+      <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B6FA4] text-white shadow-xs">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-xs font-semibold text-[#4A6278]">{t.checkOutLabel}</p>
+        <p class="mt-0.5 font-mono text-2xl font-bold text-[#0B2239] tabular-nums">{t.checkOutTime}</p>
+        <p class="mt-1 text-xs text-[#4A6278]">{t.checkOutNote}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fila 2: Línea de tiempo visual de Cancelación -->
+  <div class="mt-6 rounded-2xl border border-[#DCE8F2] bg-[#F8FBFD] p-5">
+    <h3 class="font-sans text-sm font-bold text-[#0B2239]">{t.cancelTitle}</h3>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      <div class="rounded-xl border border-[#BFE6DA] bg-[#EDF9F5] p-3.5">
+        <span class="inline-block h-2 w-10 rounded-full bg-[#0D7A67]" aria-hidden="true" />
+        <p class="mt-2 text-xs font-semibold text-[#4A6278]">{t.tier1Title}</p>
+        <p class="mt-0.5 text-sm font-bold text-[#0D7A67]">{t.tier1Val}</p>
+      </div>
+      <div class="rounded-xl border border-[#C6E3F5] bg-[#EDF6FC] p-3.5">
+        <span class="inline-block h-2 w-10 rounded-full bg-[#199bd1]" aria-hidden="true" />
+        <p class="mt-2 text-xs font-semibold text-[#4A6278]">{t.tier2Title}</p>
+        <p class="mt-0.5 text-sm font-bold text-[#0B6FA4]">{t.tier2Val}</p>
+      </div>
+      <div class="rounded-xl border border-[#DCE8F2] bg-white p-3.5">
+        <span class="inline-block h-2 w-10 rounded-full bg-[#94A9BC]" aria-hidden="true" />
+        <p class="mt-2 text-xs font-semibold text-[#4A6278]">{t.tier3Title}</p>
+        <p class="mt-0.5 text-sm font-bold text-[#4A6278]">{t.tier3Val}</p>
+      </div>
+    </div>
+    <p class="mt-3 text-xs text-[#4A6278]">{t.cancelFee}</p>
+  </div>
+
+  <!-- Fila 3: 6 tarjetas limpias de convivencia, descanso y pago -->
+  <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="rounded-xl border border-[#DCE8F2] bg-white p-4">
+      <p class="text-xs font-bold text-[#0B2239]">👨‍👩‍👧 {t.childrenTitle}</p>
+      <p class="mt-1 text-xs leading-relaxed text-[#4A6278]">{t.childrenDesc}</p>
+    </div>
+    <div class="rounded-xl border border-[#DCE8F2] bg-white p-4">
+      <p class="text-xs font-bold text-[#0B2239]">🐾 {t.petsTitle}</p>
+      <p class="mt-1 text-xs leading-relaxed text-[#4A6278]">{t.petsDesc}</p>
+    </div>
+    <div class="rounded-xl border border-[#DCE8F2] bg-white p-4">
+      <p class="text-xs font-bold text-[#0B2239]">💳 {t.payTitle}</p>
+      <p class="mt-1 text-xs leading-relaxed text-[#4A6278]">{t.payDesc}</p>
+    </div>
+    <div class="rounded-xl border border-[#DCE8F2] bg-white p-4">
+      <p class="text-xs font-bold text-[#0B2239]">🚫 {t.partiesTitle}</p>
+      <p class="mt-1 text-xs leading-relaxed text-[#4A6278]">{t.partiesDesc}</p>
+    </div>
+    <div class="rounded-xl border border-[#DCE8F2] bg-white p-4">
+      <p class="text-xs font-bold text-[#0B2239]">🌙 {t.quietTitle}</p>
+      <p class="mt-1 text-xs leading-relaxed text-[#4A6278]">{t.quietDesc}</p>
+    </div>
+    <div class="rounded-xl border border-[#DCE8F2] bg-white p-4">
+      <p class="text-xs font-bold text-[#0B2239]">🚭 {t.smokeTitle}</p>
+      <p class="mt-1 text-xs leading-relaxed text-[#4A6278]">{t.smokeDesc}</p>
+    </div>
+  </div>
+
+  <!-- Fila 4: Banner de Fianza Reembolsable €300 -->
+  <div class="mt-5 flex items-start gap-3.5 rounded-2xl border border-[#199bd1]/30 bg-gradient-to-r from-[#EBF5FC] to-[#F4FAFE] p-4 sm:p-5">
+    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#0B6FA4] shadow-2xs">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    </div>
+    <div>
+      <p class="text-sm font-bold text-[#0B2239]">{t.depositTitle}</p>
+      <p class="mt-1 text-xs leading-relaxed text-[#334E68]">{t.depositText}</p>
+    </div>
+  </div>
+</section>

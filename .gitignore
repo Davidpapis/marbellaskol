@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+.vercel/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# OS & Editor
+.DS_Store
+*.log
+
+# Recursos locales de migración (no subir ZIPs ni copias WP con credenciales)
+recursos/*.zip
+recursos/themes/
