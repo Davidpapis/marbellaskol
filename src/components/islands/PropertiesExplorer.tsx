@@ -72,7 +72,7 @@ export default function PropertiesExplorer({ lang, properties }: Props) {
           baths: 'baños',
           guestsShort: 'huésp.',
           viewApt: 'Ver apartamento y reservar',
-          mapNote: 'Mapa gratuito OpenStreetMap / Carto',
+          mapNote: 'Mapa gratuito OpenStreetMap',
         }
       : {
           checkIn: 'Check-in',
@@ -103,7 +103,7 @@ export default function PropertiesExplorer({ lang, properties }: Props) {
           baths: 'baths',
           guestsShort: 'guests',
           viewApt: 'View & Book Direct',
-          mapNote: 'Free OpenStreetMap / Carto Map',
+          mapNote: 'Free OpenStreetMap',
         };
 
   const buildings = useMemo(() => {
@@ -200,8 +200,8 @@ export default function PropertiesExplorer({ lang, properties }: Props) {
         scrollWheelZoom: false,
       });
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap &copy; CARTO',
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19,
       }).addTo(map);
 
